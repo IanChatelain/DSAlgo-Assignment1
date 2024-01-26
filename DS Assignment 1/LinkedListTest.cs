@@ -556,872 +556,872 @@ namespace TestLibrary
 
         #endregion
 
-        //#region Milestone 2
-        //#region RemoveFirst()
+        #region Milestone 2
+        #region RemoveFirst()
 
-        ///// <summary>
-        ///// Test calling RemoveFirst() on an empty list causes an exception.
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_on_EmptyList_throws_exception_test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.RemoveFirst(), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Test calling RemoveFirst() on an empty list causes an exception.
+        /// </summary>
+        [Test]
+        public void RemoveFirst_on_EmptyList_throws_exception_test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.RemoveFirst(), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Test RemoveFirst() returns reduced count by 1
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_decreases_count_by_1_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    list.RemoveFirst();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(0));
-        //}
+        /// <summary>
+        /// Test RemoveFirst() returns reduced count by 1
+        /// </summary>
+        [Test]
+        public void RemoveFirst_decreases_count_by_1_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            list.RemoveFirst();
+            ClassicAssert.That(list.Size, Is.EqualTo(0));
+        }
 
-        ///// <summary>
-        ///// Test RemoveFirst() returns the element removed.
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_Returns_first_Element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    var firstElement = list.GetFirst();
-        //    var returnedElement = list.RemoveFirst();
-        //    ClassicAssert.That(returnedElement.CompareTo(firstElement) == 0);
-        //}
+        /// <summary>
+        /// Test RemoveFirst() returns the element removed.
+        /// </summary>
+        [Test]
+        public void RemoveFirst_Returns_first_Element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            var firstElement = list.GetFirst();
+            var returnedElement = list.RemoveFirst();
+            ClassicAssert.That(returnedElement.CompareTo(firstElement) == 0);
+        }
 
-        ///// <summary>
-        ///// Test RemoveFirst() removes the head and tail on size 1 list
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_on_list_of_size_1_removes_head_and_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    list.RemoveFirst();
-        //    ClassicAssert.That(list.IsEmpty(), Is.EqualTo(true));
-        //    ClassicAssert.That(list.Head, Is.EqualTo(null));
-        //    ClassicAssert.That(list.Tail, Is.EqualTo(null));
-        //}
+        /// <summary>
+        /// Test RemoveFirst() removes the head and tail on size 1 list
+        /// </summary>
+        [Test]
+        public void RemoveFirst_on_list_of_size_1_removes_head_and_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            list.RemoveFirst();
+            ClassicAssert.That(list.IsEmpty(), Is.EqualTo(true));
+            ClassicAssert.That(list.Head, Is.EqualTo(null));
+            ClassicAssert.That(list.Tail, Is.EqualTo(null));
+        }
 
-        ///// <summary>
-        ///// RemoveFirst_on_list_2_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_on_list_2_updates_head_pointers_size_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    var returnedElement = list.RemoveFirst();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(1));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveFirst_on_list_2_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveFirst_on_list_2_updates_head_pointers_size_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            var returnedElement = list.RemoveFirst();
+            ClassicAssert.That(list.Size, Is.EqualTo(1));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveFirst_on_list_3_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_on_list_3_updates_head_pointers_size_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
-        //    var returnedElement = list.RemoveFirst();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(2));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveFirst_on_list_3_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveFirst_on_list_3_updates_head_pointers_size_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
+            var returnedElement = list.RemoveFirst();
+            ClassicAssert.That(list.Size, Is.EqualTo(2));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveFirst_on_larger_list_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_on_larger_list_updates_head_pointers_size_Test()
-        //{
-        //    int listSize = 10;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
-        //    var returnedElement = list.RemoveFirst();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(listSize - 1));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveFirst_on_larger_list_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveFirst_on_larger_list_updates_head_pointers_size_Test()
+        {
+            int listSize = 10;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
+            var returnedElement = list.RemoveFirst();
+            ClassicAssert.That(list.Size, Is.EqualTo(listSize - 1));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveFirst_multiple_times_on_larger_list_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveFirst_multiple_times_on_larger_list_updates_head_pointers_size_Test()
-        //{
-        //    int listSize = 10;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
-        //    for (int i = 1; i < listSize; i++)
-        //    {
-        //        var returnedElement = list.RemoveFirst();
-        //        ClassicAssert.That(returnedElement.CompareTo(new Employee(i)) == 0);
-        //        ClassicAssert.That(list.Size, Is.EqualTo(listSize - i));
-        //        ClassicAssert.That(list.Head.Element.CompareTo(new Employee(i + 1)) == 0);
-        //        ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize)) == 0);
-        //        ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //    }
-        //    var lastReturnedElement = list.RemoveFirst();
-        //    ClassicAssert.That(lastReturnedElement.CompareTo(new Employee(listSize)) == 0);
-        //    ClassicAssert.That(list.IsEmpty());
-        //    ClassicAssert.That(list.Head, Is.EqualTo(null));
-        //    ClassicAssert.That(list.Tail, Is.EqualTo(null));
-        //}
-        //#endregion
+        /// <summary>
+        /// RemoveFirst_multiple_times_on_larger_list_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveFirst_multiple_times_on_larger_list_updates_head_pointers_size_Test()
+        {
+            int listSize = 10;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
+            for (int i = 1; i < listSize; i++)
+            {
+                var returnedElement = list.RemoveFirst();
+                ClassicAssert.That(returnedElement.CompareTo(new Employee(i)) == 0);
+                ClassicAssert.That(list.Size, Is.EqualTo(listSize - i));
+                ClassicAssert.That(list.Head.Element.CompareTo(new Employee(i + 1)) == 0);
+                ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize)) == 0);
+                ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+            }
+            var lastReturnedElement = list.RemoveFirst();
+            ClassicAssert.That(lastReturnedElement.CompareTo(new Employee(listSize)) == 0);
+            ClassicAssert.That(list.IsEmpty());
+            ClassicAssert.That(list.Head, Is.EqualTo(null));
+            ClassicAssert.That(list.Tail, Is.EqualTo(null));
+        }
+        #endregion
 
-        //#region RemoveLast()
-        ///// <summary>
-        ///// Test calling RemoveLast() on an empty list causes an exception.
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_on_EmptyList_throws_exception_test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.RemoveLast(), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        #region RemoveLast()
+        /// <summary>
+        /// Test calling RemoveLast() on an empty list causes an exception.
+        /// </summary>
+        [Test]
+        public void RemoveLast_on_EmptyList_throws_exception_test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.RemoveLast(), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Test RemoveLast() returns reduced count by 1
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_decreases_count_by_1_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    list.RemoveLast();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(0));
-        //}
+        /// <summary>
+        /// Test RemoveLast() returns reduced count by 1
+        /// </summary>
+        [Test]
+        public void RemoveLast_decreases_count_by_1_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            list.RemoveLast();
+            ClassicAssert.That(list.Size, Is.EqualTo(0));
+        }
 
-        ///// <summary>
-        ///// Test RemoveLast() returns the element removed.
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_Returns_first_Element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    var firstElement = list.GetLast();
-        //    var returnedElement = list.RemoveLast();
-        //    ClassicAssert.That(returnedElement.CompareTo(firstElement) == 0);
-        //}
+        /// <summary>
+        /// Test RemoveLast() returns the element removed.
+        /// </summary>
+        [Test]
+        public void RemoveLast_Returns_first_Element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            var firstElement = list.GetLast();
+            var returnedElement = list.RemoveLast();
+            ClassicAssert.That(returnedElement.CompareTo(firstElement) == 0);
+        }
 
-        ///// <summary>
-        ///// Test RemoveLast() removes the head and tail on size 1 list
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_on_list_of_size_1_removes_head_and_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    list.RemoveLast();
-        //    ClassicAssert.That(list.IsEmpty(), Is.EqualTo(true));
-        //    ClassicAssert.That(list.Head, Is.EqualTo(null));
-        //    ClassicAssert.That(list.Tail, Is.EqualTo(null));
-        //}
+        /// <summary>
+        /// Test RemoveLast() removes the head and tail on size 1 list
+        /// </summary>
+        [Test]
+        public void RemoveLast_on_list_of_size_1_removes_head_and_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            list.RemoveLast();
+            ClassicAssert.That(list.IsEmpty(), Is.EqualTo(true));
+            ClassicAssert.That(list.Head, Is.EqualTo(null));
+            ClassicAssert.That(list.Tail, Is.EqualTo(null));
+        }
 
-        ///// <summary>
-        ///// RemoveLast_on_list_2_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_on_list_2_updates_head_pointers_size_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    var returnedElement = list.RemoveLast();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(1));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveLast_on_list_2_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveLast_on_list_2_updates_head_pointers_size_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            var returnedElement = list.RemoveLast();
+            ClassicAssert.That(list.Size, Is.EqualTo(1));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveLast_on_list_3_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_on_list_3_updates_head_pointers_size_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
-        //    var returnedElement = list.RemoveLast();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(2));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveLast_on_list_3_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveLast_on_list_3_updates_head_pointers_size_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
+            var returnedElement = list.RemoveLast();
+            ClassicAssert.That(list.Size, Is.EqualTo(2));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveLast_on_larger_list_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_on_larger_list_updates_head_pointers_size_Test()
-        //{
-        //    int listSize = 10;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
-        //    var returnedElement = list.RemoveLast();
-        //    ClassicAssert.That(list.Size, Is.EqualTo(listSize - 1));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(listSize)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize - 1)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveLast_on_larger_list_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveLast_on_larger_list_updates_head_pointers_size_Test()
+        {
+            int listSize = 10;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
+            var returnedElement = list.RemoveLast();
+            ClassicAssert.That(list.Size, Is.EqualTo(listSize - 1));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(listSize)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize - 1)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveLast_multiple_times_on_larger_list_updates_head_pointers_size_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveLast_multiple_times_on_larger_list_updates_head_pointers_size_Test()
-        //{
-        //    int listSize = 10;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
-        //    for (int i = 10, count = 1; i > 1; i--, count++)
-        //    {
-        //        var returnedElement = list.RemoveLast();
-        //        ClassicAssert.That(returnedElement.CompareTo(new Employee(i)) == 0);
-        //        ClassicAssert.That(list.Size, Is.EqualTo(listSize - count));
-        //        ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //        ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize - count)) == 0);
-        //        ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //    }
-        //    var lastReturnedElement = list.RemoveLast();
-        //    ClassicAssert.That(lastReturnedElement.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.IsEmpty());
-        //    ClassicAssert.That(list.Head, Is.EqualTo(null));
-        //    ClassicAssert.That(list.Tail, Is.EqualTo(null));
-        //}
-        //#endregion
+        /// <summary>
+        /// RemoveLast_multiple_times_on_larger_list_updates_head_pointers_size_Test
+        /// </summary>
+        [Test]
+        public void RemoveLast_multiple_times_on_larger_list_updates_head_pointers_size_Test()
+        {
+            int listSize = 10;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out _);
+            for (int i = 10, count = 1; i > 1; i--, count++)
+            {
+                var returnedElement = list.RemoveLast();
+                ClassicAssert.That(returnedElement.CompareTo(new Employee(i)) == 0);
+                ClassicAssert.That(list.Size, Is.EqualTo(listSize - count));
+                ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+                ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize - count)) == 0);
+                ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+            }
+            var lastReturnedElement = list.RemoveLast();
+            ClassicAssert.That(lastReturnedElement.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.IsEmpty());
+            ClassicAssert.That(list.Head, Is.EqualTo(null));
+            ClassicAssert.That(list.Tail, Is.EqualTo(null));
+        }
+        #endregion
 
-        //#region Get(position)
-        ///// <summary>
-        ///// Make sure that calling Get(position) on an empty list results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_Position_On_EmptyList_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.Get(1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        #region Get(position)
+        /// <summary>
+        /// Make sure that calling Get(position) on an empty list results in an exception.
+        /// </summary>
+        [Test]
+        public void Get_By_Position_On_EmptyList_throws_exception_Test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.Get(1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Make sure at calling Get(position) with a negative number results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_number_less_than_1_on_existingList_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    ClassicAssert.That(() => list.Get(-1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Make sure at calling Get(position) with a negative number results in an exception.
+        /// </summary>
+        [Test]
+        public void Get_By_number_less_than_1_on_existingList_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            ClassicAssert.That(() => list.Get(-1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that calling Get(positoin) with a value larger than the size of the list results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_Position_larger_than_list_size_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    ClassicAssert.That(() => list.Get(list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that calling Get(positoin) with a value larger than the size of the list results in an exception.
+        /// </summary>
+        [Test]
+        public void Get_By_Position_larger_than_list_size_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            ClassicAssert.That(() => list.Get(list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that Get(position) returns the element at the correct position.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_Position_1_on_existingList_returns_head_element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    ClassicAssert.That(list.Get(1).CompareTo(list.GetFirst()).Equals(0));
-        //}
+        /// <summary>
+        /// Ensure that Get(position) returns the element at the correct position.
+        /// </summary>
+        [Test]
+        public void Get_By_Position_1_on_existingList_returns_head_element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            ClassicAssert.That(list.Get(1).CompareTo(list.GetFirst()).Equals(0));
+        }
 
-        ///// <summary>D
-        ///// Ensure that Get(position) returns the element at the correct position.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_Position_size_on_existingList_returns_tail_element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    ClassicAssert.That(list.Get(list.Size).CompareTo(list.GetLast()).Equals(0));
-        //}
+        /// <summary>D
+        /// Ensure that Get(position) returns the element at the correct position.
+        /// </summary>
+        [Test]
+        public void Get_By_Position_size_on_existingList_returns_tail_element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            ClassicAssert.That(list.Get(list.Size).CompareTo(list.GetLast()).Equals(0));
+        }
 
-        ///// <summary>
-        ///// Ensure that Get(position) returns the element at the correct position.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_Position_3_on_existingList_returns_correct_element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    ClassicAssert.That(list.Get(3).CompareTo(list.Head.Next.Next.Element).Equals(0));
-        //}
+        /// <summary>
+        /// Ensure that Get(position) returns the element at the correct position.
+        /// </summary>
+        [Test]
+        public void Get_By_Position_3_on_existingList_returns_correct_element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            ClassicAssert.That(list.Get(3).CompareTo(list.Head.Next.Next.Element).Equals(0));
+        }
 
-        ///// <summary>
-        ///// Ensure that Get(position) returns the element at the correct position.
-        ///// </summary>
-        //[Test]
-        //public void Get_By_Position_on_LARGE_existingList_returns_correct_elements_and_structure_is_not_changed_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(10, out _);
-        //    Node<Employee> node = list.Head;
-        //    for (int i = 1; i <= list.Size; i++)
-        //    {
-        //        ClassicAssert.That(list.Get(i).CompareTo(node.Element).Equals(0));
-        //        node = node.Next;
-        //    }
+        /// <summary>
+        /// Ensure that Get(position) returns the element at the correct position.
+        /// </summary>
+        [Test]
+        public void Get_By_Position_on_LARGE_existingList_returns_correct_elements_and_structure_is_not_changed_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(10, out _);
+            Node<Employee> node = list.Head;
+            for (int i = 1; i <= list.Size; i++)
+            {
+                ClassicAssert.That(list.Get(i).CompareTo(node.Element).Equals(0));
+                node = node.Next;
+            }
 
-        //    // Head/Tail and all pointers are all intact and correct:
-        //    CheckIntegrityBetweenAllNodes(list);
-        //}
-        //#endregion
+            // Head/Tail and all pointers are all intact and correct:
+            CheckIntegrityBetweenAllNodes(list);
+        }
+        #endregion
 
-        //#region AddAfter(element, position)
-        ///// <summary>
-        ///// Ensure that calling AddAfter() on an empty list will result in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddAfterPosition_on_EmptyList_throws_exception_test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.AddAfter(new Employee(1), 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        #region AddAfter(element, position)
+        /// <summary>
+        /// Ensure that calling AddAfter() on an empty list will result in an exception.
+        /// </summary>
+        [Test]
+        public void AddAfterPosition_on_EmptyList_throws_exception_test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.AddAfter(new Employee(1), 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that passing a negative position value to AddAfter(element, position) results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddAfterPosition_Negative_Position_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddAfter(new Employee(2), -1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that passing a negative position value to AddAfter(element, position) results in an exception.
+        /// </summary>
+        [Test]
+        public void AddAfterPosition_Negative_Position_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddAfter(new Employee(2), -1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that calling AddBefore(element, position) with a value of zero results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddAfterPosition_Zero_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddAfter(new Employee(1), 0), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that calling AddBefore(element, position) with a value of zero results in an exception.
+        /// </summary>
+        [Test]
+        public void AddAfterPosition_Zero_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddAfter(new Employee(1), 0), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that passing a position value larger than size to AddAfter(element, position) results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddAfterPosition_getsize_plus_1_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddAfter(new Employee(1), list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that passing a position value larger than size to AddAfter(element, position) results in an exception.
+        /// </summary>
+        [Test]
+        public void AddAfterPosition_getsize_plus_1_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddAfter(new Employee(1), list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that passing a null element, throws and exception.
-        ///// </summary>
-        //[Test]
-        //public void AddAfterPosition_null_element_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddAfter(null, 1), Throws.Exception.TypeOf<ArgumentNullException>());
-        //}
+        /// <summary>
+        /// Ensure that passing a null element, throws and exception.
+        /// </summary>
+        [Test]
+        public void AddAfterPosition_null_element_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddAfter(null, 1), Throws.Exception.TypeOf<ArgumentNullException>());
+        }
 
-        ///// <summary>
-        ///// AddAfter position 1 on list of 1 updates size and Tail
-        ///// </summary>
-        //[Test]
-        //public void AddAfterByPosition_on_list_of_1_increases_size_updates_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    list.AddAfter(new Employee(2), 1); // insert 2 after 1
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(2));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddAfter position 1 on list of 1 updates size and Tail
+        /// </summary>
+        [Test]
+        public void AddAfterByPosition_on_list_of_1_increases_size_updates_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            list.AddAfter(new Employee(2), 1); // insert 2 after 1
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Size.Equals(2));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// AddAfter position 1 on list of 2, adding after head, inserts between head/tail
-        ///// </summary>
-        //[Test]
-        //public void AddAfterByPosition_1_on_list_of_2_adding_inserts_between_head_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    list.AddAfter(new Employee(3), 1); // insert 3 after 1, list will be: 1, 3, 2
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(3));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddAfter position 1 on list of 2, adding after head, inserts between head/tail
+        /// </summary>
+        [Test]
+        public void AddAfterByPosition_1_on_list_of_2_adding_inserts_between_head_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            list.AddAfter(new Employee(3), 1); // insert 3 after 1, list will be: 1, 3, 2
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Size.Equals(3));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// AddAfter position 1 on list of Five updates size and node pointers
-        ///// </summary>
-        //[Test]
-        //public void AddAfterByPosition_1_on_list_of_5_increases_size_updates_node_pointers_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    list.AddAfter(new Employee(6), 1); // insert 6 after 1, list will be: 1, 6, 2, 3, 4, 5
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(6)) == 0);
-        //    ClassicAssert.That(list.Head.Next.Next.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(5)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(6));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddAfter position 1 on list of Five updates size and node pointers
+        /// </summary>
+        [Test]
+        public void AddAfterByPosition_1_on_list_of_5_increases_size_updates_node_pointers_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            list.AddAfter(new Employee(6), 1); // insert 6 after 1, list will be: 1, 6, 2, 3, 4, 5
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(6)) == 0);
+            ClassicAssert.That(list.Head.Next.Next.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(5)) == 0);
+            ClassicAssert.That(list.Size.Equals(6));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// AddAfter by position in the middle of larger list, updates size, node pointers
-        ///// </summary>
-        //[Test]
-        //public void AddAfterByPosition_on_larger_list_add_after_middle_node_increases_size_updates_node_pointers_Test()
-        //{
-        //    Node<Employee>[] nodes;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(8, out nodes);
-        //    list.AddAfter(new Employee(9), 4); // insert 9 after 4: 1, 2, 3, 4, 9, 5, 6, 7, 8
-        //    ClassicAssert.That(nodes[3].Element.CompareTo(new Employee(4)) == 0);
-        //    ClassicAssert.That(nodes[3].Next.Element.CompareTo(new Employee(9)) == 0);
-        //    ClassicAssert.That(nodes[4].Element.CompareTo(new Employee(5)) == 0);
-        //    ClassicAssert.That(nodes[4].Previous.Element.CompareTo(new Employee(9)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(8)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(9));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddAfter by position in the middle of larger list, updates size, node pointers
+        /// </summary>
+        [Test]
+        public void AddAfterByPosition_on_larger_list_add_after_middle_node_increases_size_updates_node_pointers_Test()
+        {
+            Node<Employee>[] nodes;
+            LinkedList<Employee> list = CreateListWithoutMethods(8, out nodes);
+            list.AddAfter(new Employee(9), 4); // insert 9 after 4: 1, 2, 3, 4, 9, 5, 6, 7, 8
+            ClassicAssert.That(nodes[3].Element.CompareTo(new Employee(4)) == 0);
+            ClassicAssert.That(nodes[3].Next.Element.CompareTo(new Employee(9)) == 0);
+            ClassicAssert.That(nodes[4].Element.CompareTo(new Employee(5)) == 0);
+            ClassicAssert.That(nodes[4].Previous.Element.CompareTo(new Employee(9)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(8)) == 0);
+            ClassicAssert.That(list.Size.Equals(9));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// Checking edge case; Ensure that passing the tail position will append to the end of the list without error.
-        ///// </summary>
-        //[Test]
-        //public void AddAfterByPosition_using_last_position_on_existingList_updates_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    list.AddAfter(new Employee(6), list.Size); // 1, 2, 3, 4, 5 then 6 is added as the tail
-        //    ClassicAssert.That(list.Size.Equals(6));
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Previous.Element.CompareTo(new Employee(5)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(6)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
-        //#endregion
+        /// <summary>
+        /// Checking edge case; Ensure that passing the tail position will append to the end of the list without error.
+        /// </summary>
+        [Test]
+        public void AddAfterByPosition_using_last_position_on_existingList_updates_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            list.AddAfter(new Employee(6), list.Size); // 1, 2, 3, 4, 5 then 6 is added as the tail
+            ClassicAssert.That(list.Size.Equals(6));
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Previous.Element.CompareTo(new Employee(5)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(6)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
+        #endregion
 
-        //#region AddBefore(element, positon)
-        ///// <summary>
-        ///// Ensure that calling AddBefore() on an empty list will result in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddBeforePosition_on_EmptyList_throws_exception_test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.AddBefore(new Employee(1), 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        #region AddBefore(element, positon)
+        /// <summary>
+        /// Ensure that calling AddBefore() on an empty list will result in an exception.
+        /// </summary>
+        [Test]
+        public void AddBeforePosition_on_EmptyList_throws_exception_test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.AddBefore(new Employee(1), 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that passing a negative position value to AddBefore(element, position) results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddBeforePosition_Negative_Position_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddBefore(new Employee(2), -1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
-        ///// <summary>
-        ///// Ensure that calling AddBefore(element, position) with a value of zero results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddBeforePosition_Zero_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddBefore(new Employee(1), 0), Throws.Exception.TypeOf<ApplicationException>());
-        //}
-        ///// <summary>
-        ///// Ensure that passing a position value larger than size to AddBefore(element, position) results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void AddBeforePosition_getsize_plus_1_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.AddBefore(new Employee(1), list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that passing a negative position value to AddBefore(element, position) results in an exception.
+        /// </summary>
+        [Test]
+        public void AddBeforePosition_Negative_Position_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddBefore(new Employee(2), -1), Throws.Exception.TypeOf<ApplicationException>());
+        }
+        /// <summary>
+        /// Ensure that calling AddBefore(element, position) with a value of zero results in an exception.
+        /// </summary>
+        [Test]
+        public void AddBeforePosition_Zero_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddBefore(new Employee(1), 0), Throws.Exception.TypeOf<ApplicationException>());
+        }
+        /// <summary>
+        /// Ensure that passing a position value larger than size to AddBefore(element, position) results in an exception.
+        /// </summary>
+        [Test]
+        public void AddBeforePosition_getsize_plus_1_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.AddBefore(new Employee(1), list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// AddBefore position 1 on list of 1 updates size and Head
-        ///// </summary>
-        //[Test]
-        //public void AddBeforeByPosition_on_list_of_1_increases_size_updates_head_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    list.AddBefore(new Employee(2), 1); // insert 2 before 1
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(2));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddBefore position 1 on list of 1 updates size and Head
+        /// </summary>
+        [Test]
+        public void AddBeforeByPosition_on_list_of_1_increases_size_updates_head_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            list.AddBefore(new Employee(2), 1); // insert 2 before 1
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Size.Equals(2));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// AddBefore position 2 on list of 2, adding before tail, inserts between head/tail
-        ///// </summary>
-        //[Test]
-        //public void AddBeforeByPosition_2_on_list_of_2_adding_inserts_between_head_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    list.AddBefore(new Employee(3), 2); // insert 3 before 2, list will be: 1, 3, 2
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(3));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddBefore position 2 on list of 2, adding before tail, inserts between head/tail
+        /// </summary>
+        [Test]
+        public void AddBeforeByPosition_2_on_list_of_2_adding_inserts_between_head_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            list.AddBefore(new Employee(3), 2); // insert 3 before 2, list will be: 1, 3, 2
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Size.Equals(3));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// AddBefore position size on list of Five updates size and node pointers
-        ///// </summary>
-        //[Test]
-        //public void AddBeforeByPosition_last_position_on_list_of_5_increases_size_updates_node_pointers_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    list.AddBefore(new Employee(6), list.Size); // insert 6 before 5, list will be: 1, 2, 3, 4, 6, 5
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Previous.Previous.Element.CompareTo(new Employee(4)) == 0);
-        //    ClassicAssert.That(list.Tail.Previous.Element.CompareTo(new Employee(6)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(5)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(6));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddBefore position size on list of Five updates size and node pointers
+        /// </summary>
+        [Test]
+        public void AddBeforeByPosition_last_position_on_list_of_5_increases_size_updates_node_pointers_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            list.AddBefore(new Employee(6), list.Size); // insert 6 before 5, list will be: 1, 2, 3, 4, 6, 5
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Previous.Previous.Element.CompareTo(new Employee(4)) == 0);
+            ClassicAssert.That(list.Tail.Previous.Element.CompareTo(new Employee(6)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(5)) == 0);
+            ClassicAssert.That(list.Size.Equals(6));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// AddBefore by middle position of larger list, updates size, node pointers
-        ///// </summary>
-        //[Test]
-        //public void AddBeforeByPosition_middle_on_larger_list_increases_size_updates_node_pointers_Test()
-        //{
-        //    Node<Employee>[] nodes;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(8, out nodes);
-        //    list.AddBefore(new Employee(9), 4); // insert 9 before 4: 1, 2, 3, 9, 4, 5, 6, 7, 8
-        //    ClassicAssert.That(nodes[2].Element.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.That(nodes[2].Next.Element.CompareTo(new Employee(9)) == 0);
-        //    ClassicAssert.That(nodes[3].Element.CompareTo(new Employee(4)) == 0);
-        //    ClassicAssert.That(nodes[3].Previous.Element.CompareTo(new Employee(9)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(8)) == 0);
-        //    ClassicAssert.That(list.Size.Equals(9));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// AddBefore by middle position of larger list, updates size, node pointers
+        /// </summary>
+        [Test]
+        public void AddBeforeByPosition_middle_on_larger_list_increases_size_updates_node_pointers_Test()
+        {
+            Node<Employee>[] nodes;
+            LinkedList<Employee> list = CreateListWithoutMethods(8, out nodes);
+            list.AddBefore(new Employee(9), 4); // insert 9 before 4: 1, 2, 3, 9, 4, 5, 6, 7, 8
+            ClassicAssert.That(nodes[2].Element.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.That(nodes[2].Next.Element.CompareTo(new Employee(9)) == 0);
+            ClassicAssert.That(nodes[3].Element.CompareTo(new Employee(4)) == 0);
+            ClassicAssert.That(nodes[3].Previous.Element.CompareTo(new Employee(9)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(8)) == 0);
+            ClassicAssert.That(list.Size.Equals(9));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// Checking edge case; Ensure that passing the head position will append to the beginning of the list without error.
-        ///// </summary>
-        //[Test]
-        //public void AddBeforeByPosition_using_first_position_on_existingList_updates_head_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
-        //    list.AddBefore(new Employee(6), 1); // 6, 1, 2, 3, 4, 5 
-        //    ClassicAssert.That(list.Size.Equals(6));
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(6)) == 0);
-        //    ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(5)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
-        //#endregion
+        /// <summary>
+        /// Checking edge case; Ensure that passing the head position will append to the beginning of the list without error.
+        /// </summary>
+        [Test]
+        public void AddBeforeByPosition_using_first_position_on_existingList_updates_head_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(5, out _);
+            list.AddBefore(new Employee(6), 1); // 6, 1, 2, 3, 4, 5 
+            ClassicAssert.That(list.Size.Equals(6));
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(6)) == 0);
+            ClassicAssert.That(list.Head.Next.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(5)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
+        #endregion
 
-        //#region Remove(position)
-        ///// <summary>
-        ///// Make sure that calling Remove(position) on an empty list results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_On_EmptyList_throw_exception_Test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.Remove(1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        #region Remove(position)
+        /// <summary>
+        /// Make sure that calling Remove(position) on an empty list results in an exception.
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_On_EmptyList_throw_exception_Test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.Remove(1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Make sure at calling Remove(position) with a negative number results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_Negative_number_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.Remove(-1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Make sure at calling Remove(position) with a negative number results in an exception.
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_Negative_number_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.Remove(-1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that calling Remove(position) with a value of zero results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_Zero_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.Remove(0), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that calling Remove(position) with a value of zero results in an exception.
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_Zero_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.Remove(0), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that calling Remove(position) with a value larger than the size of the list results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_getsize_plus_one_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.Remove(list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Ensure that calling Remove(position) with a value larger than the size of the list results in an exception.
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_getsize_plus_one_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.Remove(list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that Remove() returns the element removed.
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_Returns_an_Element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    var returnedElement = list.Remove(1);
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
-        //}
+        /// <summary>
+        /// Ensure that Remove() returns the element removed.
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_Returns_an_Element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            var returnedElement = list.Remove(1);
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
+        }
 
-        ///// <summary>
-        ///// Ensure that Remove() decreases count and clears the list
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_decreases_count_by_one_updates_head_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    var returnedElement = list.Remove(1);
-        //    ClassicAssert.That(list.Size, Is.EqualTo(0));
-        //    ClassicAssert.That(list.Head, Is.Null);
-        //    ClassicAssert.That(list.Tail, Is.Null);
-        //}
+        /// <summary>
+        /// Ensure that Remove() decreases count and clears the list
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_decreases_count_by_one_updates_head_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            var returnedElement = list.Remove(1);
+            ClassicAssert.That(list.Size, Is.EqualTo(0));
+            ClassicAssert.That(list.Head, Is.Null);
+            ClassicAssert.That(list.Tail, Is.Null);
+        }
 
-        ///// <summary>
-        ///// Ensure that Remove() list of 2 on head decreases count and updates head/tail
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_list_of_2_remove_head_updates_head_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    var returnedElement = list.Remove(1); // removes 1
-        //    ClassicAssert.That(list.Size, Is.EqualTo(1));
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Equals(list.Head));
-        //}
+        /// <summary>
+        /// Ensure that Remove() list of 2 on head decreases count and updates head/tail
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_list_of_2_remove_head_updates_head_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            var returnedElement = list.Remove(1); // removes 1
+            ClassicAssert.That(list.Size, Is.EqualTo(1));
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Equals(list.Head));
+        }
 
-        ///// <summary>
-        ///// Ensure that Remove() list of 2 on Tail decreases count and updates head/tail
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_list_of_2_remove_tail_updates_head_tail_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    var returnedElement = list.Remove(list.Size); // removes 2
-        //    ClassicAssert.That(list.Size, Is.EqualTo(1));
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Equals(list.Head));
-        //}
+        /// <summary>
+        /// Ensure that Remove() list of 2 on Tail decreases count and updates head/tail
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_list_of_2_remove_tail_updates_head_tail_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            var returnedElement = list.Remove(list.Size); // removes 2
+            ClassicAssert.That(list.Size, Is.EqualTo(1));
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Equals(list.Head));
+        }
 
-        ///// <summary>
-        ///// RemoveByPosition_remove_tail_on_list_of_size_3_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_remove_tail_on_list_of_size_3_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
-        //    var returnedElement = list.Remove(list.Size); // removes employee 3, Remaining list is: 1, 2
-        //    ClassicAssert.That(list.Size, Is.EqualTo(2));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveByPosition_remove_tail_on_list_of_size_3_Test
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_remove_tail_on_list_of_size_3_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
+            var returnedElement = list.Remove(list.Size); // removes employee 3, Remaining list is: 1, 2
+            ClassicAssert.That(list.Size, Is.EqualTo(2));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveByPosition_remove_head_on_list_of_size_3_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_remove_head_on_list_of_size_3_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
-        //    var returnedElement = list.Remove(1); // removes employee 1, Remaining list is: 2, 3
-        //    ClassicAssert.That(list.Size, Is.EqualTo(2));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveByPosition_remove_head_on_list_of_size_3_Test
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_remove_head_on_list_of_size_3_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
+            var returnedElement = list.Remove(1); // removes employee 1, Remaining list is: 2, 3
+            ClassicAssert.That(list.Size, Is.EqualTo(2));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveByPosition_remove_middle_on_list_of_size_3_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_remove_middle_on_list_of_size_3_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
-        //    var returnedElement = list.Remove(2); // removes employee 2, Remaining list is: 1, 3
-        //    ClassicAssert.That(list.Size, Is.EqualTo(2));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(2)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(3)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// RemoveByPosition_remove_middle_on_list_of_size_3_Test
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_remove_middle_on_list_of_size_3_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(3, out _);
+            var returnedElement = list.Remove(2); // removes employee 2, Remaining list is: 1, 3
+            ClassicAssert.That(list.Size, Is.EqualTo(2));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(2)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(3)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// RemoveByPosition_remove_middle_on_larger_list_Test
-        ///// </summary>
-        //[Test]
-        //public void RemoveByPosition_remove_middle_on_larger_list_Test()
-        //{
-        //    int listSize = 10;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(10, out _);
-        //    var returnedElement = list.Remove(listSize / 2); // removes employee 5, Remaining list is: 1 2 3 4 6 7 8 9 10
-        //    ClassicAssert.That(list.Size, Is.EqualTo(listSize - 1));
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(listSize / 2)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize)) == 0);
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
-        //#endregion
+        /// <summary>
+        /// RemoveByPosition_remove_middle_on_larger_list_Test
+        /// </summary>
+        [Test]
+        public void RemoveByPosition_remove_middle_on_larger_list_Test()
+        {
+            int listSize = 10;
+            LinkedList<Employee> list = CreateListWithoutMethods(10, out _);
+            var returnedElement = list.Remove(listSize / 2); // removes employee 5, Remaining list is: 1 2 3 4 6 7 8 9 10
+            ClassicAssert.That(list.Size, Is.EqualTo(listSize - 1));
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(listSize / 2)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize)) == 0);
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
+        #endregion
 
-        //#region Set(element, position)
-        ///// <summary>
-        ///// Test Set(position) on an empty list results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_On_EmptyList_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = new LinkedList<Employee>();
-        //    ClassicAssert.That(() => list.Set(new Employee(1), 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        #region Set(element, position)
+        /// <summary>
+        /// Test Set(position) on an empty list results in an exception.
+        /// </summary>
+        [Test]
+        public void SetByPosition_On_EmptyList_throws_exception_Test()
+        {
+            LinkedList<Employee> list = new LinkedList<Employee>();
+            ClassicAssert.That(() => list.Set(new Employee(1), 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Test Set(position) with a negative number results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_Negative_Value_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.Set(new Employee(2), -1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Test Set(position) with a negative number results in an exception.
+        /// </summary>
+        [Test]
+        public void SetByPosition_Negative_Value_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.Set(new Employee(2), -1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Test Set(position) with a value of zero results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_Zero_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.Set(new Employee(2), 0), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Test Set(position) with a value of zero results in an exception.
+        /// </summary>
+        [Test]
+        public void SetByPosition_Zero_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.Set(new Employee(2), 0), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Test Set(position) with a value larger than the size of the list results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void SetByPositionLargerThanSizeTest()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
-        //    ClassicAssert.That(() => list.Set(new Employee(2), list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        /// <summary>
+        /// Test Set(position) with a value larger than the size of the list results in an exception.
+        /// </summary>
+        [Test]
+        public void SetByPositionLargerThanSizeTest()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(2, out _);
+            ClassicAssert.That(() => list.Set(new Employee(2), list.Size + 1), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
-        ///// <summary>
-        ///// Ensure that passing null value to Set(element, position) results in an exception.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_Null_element_throws_exception_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    ClassicAssert.That(() => list.Set(null, 1), Throws.Exception.TypeOf<ArgumentNullException>());
-        //}
+        /// <summary>
+        /// Ensure that passing null value to Set(element, position) results in an exception.
+        /// </summary>
+        [Test]
+        public void SetByPosition_Null_element_throws_exception_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            ClassicAssert.That(() => list.Set(null, 1), Throws.Exception.TypeOf<ArgumentNullException>());
+        }
 
-        ///// <summary>
-        ///// Test Set(position) returns the replaced element.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_Returns_old_Element_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    Employee returnValue = list.Set(new Employee(2), 1);
-        //    ClassicAssert.That(returnValue.CompareTo(new Employee(1)) == 0); // old value returned
-        //}
+        /// <summary>
+        /// Test Set(position) returns the replaced element.
+        /// </summary>
+        [Test]
+        public void SetByPosition_Returns_old_Element_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            Employee returnValue = list.Set(new Employee(2), 1);
+            ClassicAssert.That(returnValue.CompareTo(new Employee(1)) == 0); // old value returned
+        }
 
-        ///// <summary>
-        ///// Ensure that Set(position) sets the element at the correct position 
-        ///// Also checks that no changes occured to the size or structure: head/tail/node or their next/previous
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_1_on_list_of_1_updates_element_does_not_change_list_or_size_Test()
-        //{
-        //    LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
-        //    Node<Employee> head = list.Head; // saving a pointer to the old head
-        //    list.Set(new Employee(2), 1);
-        //    ClassicAssert.That(head.Element.CompareTo(new Employee(2)) == 0); // node in position 1 is now 2
-        //    ClassicAssert.That(list.Head.Equals(head) && list.Tail.Equals(head)); // the head/tail is still the old head node in memory!
-        //    ClassicAssert.That(list.Size.Equals(1)); // size hasn't changed
-        //    // check that pointers are still correct and head/tail has not changed:
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// Ensure that Set(position) sets the element at the correct position 
+        /// Also checks that no changes occured to the size or structure: head/tail/node or their next/previous
+        /// </summary>
+        [Test]
+        public void SetByPosition_1_on_list_of_1_updates_element_does_not_change_list_or_size_Test()
+        {
+            LinkedList<Employee> list = CreateListWithoutMethods(1, out _);
+            Node<Employee> head = list.Head; // saving a pointer to the old head
+            list.Set(new Employee(2), 1);
+            ClassicAssert.That(head.Element.CompareTo(new Employee(2)) == 0); // node in position 1 is now 2
+            ClassicAssert.That(list.Head.Equals(head) && list.Tail.Equals(head)); // the head/tail is still the old head node in memory!
+            ClassicAssert.That(list.Size.Equals(1)); // size hasn't changed
+            // check that pointers are still correct and head/tail has not changed:
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// Ensure that Set(position) sets the element at the correct position.
-        ///// Also ensures structure remains intact. No changes to Tail/Head/Nodes/Next/Previous/Size.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_tail_on_large_list_updates_only_element_Test()
-        //{
-        //    int listSize = 10;
-        //    Node<Employee>[] nodes;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out nodes);
-        //    var returnedElement = list.Set(new Employee(listSize + 1), list.Size);
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(listSize)) == 0);
-        //    ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize + 1)) == 0);
-        //    for (int i = 1, index = 0; i < listSize; i++, index++)
-        //    {
-        //        ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(i)) == 0);
-        //    }
-        //    ClassicAssert.That(list.Size.Equals(listSize));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// Ensure that Set(position) sets the element at the correct position.
+        /// Also ensures structure remains intact. No changes to Tail/Head/Nodes/Next/Previous/Size.
+        /// </summary>
+        [Test]
+        public void SetByPosition_tail_on_large_list_updates_only_element_Test()
+        {
+            int listSize = 10;
+            Node<Employee>[] nodes;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out nodes);
+            var returnedElement = list.Set(new Employee(listSize + 1), list.Size);
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(listSize)) == 0);
+            ClassicAssert.That(list.Tail.Element.CompareTo(new Employee(listSize + 1)) == 0);
+            for (int i = 1, index = 0; i < listSize; i++, index++)
+            {
+                ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(i)) == 0);
+            }
+            ClassicAssert.That(list.Size.Equals(listSize));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// Ensure that Set(position) sets the element at the correct position.
-        ///// Also ensures structure remains intact. No changes to Tail/Head/Nodes/Next/Previous/Size.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_head_on_large_list_updates_only_element_Test()
-        //{
-        //    int listSize = 10;
-        //    Node<Employee>[] nodes;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out nodes);
-        //    var returnedElement = list.Set(new Employee(listSize + 1), 1);
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
-        //    ClassicAssert.That(list.Head.Element.CompareTo(new Employee(listSize + 1)) == 0);
-        //    for (int i = 2, index = 1; i <= listSize; i++, index++)
-        //    {
-        //        ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(i)) == 0);
-        //    }
-        //    ClassicAssert.That(list.Size.Equals(listSize));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
+        /// <summary>
+        /// Ensure that Set(position) sets the element at the correct position.
+        /// Also ensures structure remains intact. No changes to Tail/Head/Nodes/Next/Previous/Size.
+        /// </summary>
+        [Test]
+        public void SetByPosition_head_on_large_list_updates_only_element_Test()
+        {
+            int listSize = 10;
+            Node<Employee>[] nodes;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out nodes);
+            var returnedElement = list.Set(new Employee(listSize + 1), 1);
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(1)) == 0);
+            ClassicAssert.That(list.Head.Element.CompareTo(new Employee(listSize + 1)) == 0);
+            for (int i = 2, index = 1; i <= listSize; i++, index++)
+            {
+                ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(i)) == 0);
+            }
+            ClassicAssert.That(list.Size.Equals(listSize));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
 
-        ///// <summary>
-        ///// Ensure that Set(position) sets the element at the correct position.
-        ///// Also ensures structure remains intact. No changes to Tail/Head/Nodes/Next/Previous/Size.
-        ///// </summary>
-        //[Test]
-        //public void SetByPosition_middle_on_large_list_updates_only_element_Test()
-        //{
-        //    int listSize = 10;
-        //    Node<Employee>[] nodes;
-        //    LinkedList<Employee> list = CreateListWithoutMethods(listSize, out nodes);
-        //    var returnedElement = list.Set(new Employee(listSize + 1), list.Size / 2);
-        //    ClassicAssert.That(returnedElement.CompareTo(new Employee(list.Size / 2)) == 0);
-        //    for (int i = 1, index = 0; i <= listSize; i++, index++)
-        //    {
-        //        if (i == list.Size / 2)
-        //            ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(listSize + 1)) == 0);
-        //        else
-        //            ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(i)) == 0);
-        //    }
-        //    ClassicAssert.That(list.Size.Equals(listSize));
-        //    ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
-        //}
-        //#endregion
-        //#endregion
+        /// <summary>
+        /// Ensure that Set(position) sets the element at the correct position.
+        /// Also ensures structure remains intact. No changes to Tail/Head/Nodes/Next/Previous/Size.
+        /// </summary>
+        [Test]
+        public void SetByPosition_middle_on_large_list_updates_only_element_Test()
+        {
+            int listSize = 10;
+            Node<Employee>[] nodes;
+            LinkedList<Employee> list = CreateListWithoutMethods(listSize, out nodes);
+            var returnedElement = list.Set(new Employee(listSize + 1), list.Size / 2);
+            ClassicAssert.That(returnedElement.CompareTo(new Employee(list.Size / 2)) == 0);
+            for (int i = 1, index = 0; i <= listSize; i++, index++)
+            {
+                if (i == list.Size / 2)
+                    ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(listSize + 1)) == 0);
+                else
+                    ClassicAssert.That(nodes[index].Element.CompareTo(new Employee(i)) == 0);
+            }
+            ClassicAssert.That(list.Size.Equals(listSize));
+            ClassicAssert.True(CheckIntegrityBetweenAllNodes(list));
+        }
+        #endregion
+        #endregion
 
         //#region Milestone 3
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace TestLibrary
 {
@@ -53,7 +54,7 @@ namespace TestLibrary
         /// <exception cref="ApplicationException">Thrown if the linked list is empty.</exception>
         public T GetFirst()
         {
-            this.ThrowIsEmpty();
+            this.ThrowEmptyList();
             return this.Head.Element;
         }
 
@@ -64,7 +65,7 @@ namespace TestLibrary
         /// <exception cref="ApplicationException">Thrown if the linked list is empty.</exception>
         public T GetLast()
         {
-            this.ThrowIsEmpty();
+            this.ThrowEmptyList();
             return this.Tail.Element;
         }
 
@@ -78,7 +79,7 @@ namespace TestLibrary
         public T SetFirst(T element)
         {
             this.ThrowNotNull(element);
-            this.ThrowIsEmpty();
+            this.ThrowEmptyList();
 
             T oldElement = this.Head.Element;
 
@@ -97,7 +98,7 @@ namespace TestLibrary
         public T SetLast(T element)
         {
             this.ThrowNotNull(element);
-            this.ThrowIsEmpty();
+            this.ThrowEmptyList();
 
             T oldElement = this.Tail.Element;
 
@@ -158,6 +159,247 @@ namespace TestLibrary
             this.Size++;
         }
 
+        // Milestone #2
+
+        /// <summary>
+        /// Removes and returns the element from the first node of the list.
+        /// </summary>
+        /// <returns>The element that was removed from the list.</returns>
+        public T RemoveFirst()
+        {
+            this.ThrowEmptyList();
+
+            T firstElement = this.GetFirst();
+
+            if (this.Size == 1)
+            {
+                this.Head = null;
+                this.Tail = null;
+            }
+            else
+            {
+                this.Head = this.Head.Next;
+                this.Head.Previous = null;
+            }
+
+            this.Size--;
+
+            return firstElement;
+        }
+
+        /// <summary>
+        /// Removes and returns the element from the last node of the list.
+        /// </summary>
+        /// <returns>The element that was removed from the list.</returns>
+        public T RemoveLast()
+        {
+            this.ThrowEmptyList();
+
+            T lastElement = this.GetLast();
+
+            if (this.Size == 1)
+            {
+                this.Head = null;
+                this.Tail = null;
+            }
+            else
+            {
+                this.Tail = this.Tail.Previous;
+                this.Tail.Next = null;
+            }
+
+            this.Size--;
+
+            return lastElement;
+        }
+
+        /// <summary>
+        /// Retrieves the element at the specified position in the list.
+        /// </summary>
+        /// <param name="position">The integer based position of the element to retrieve.</param>
+        /// <returns>The element at the specified position.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the list is empty</exception>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        public T Get(int position)
+        {
+            return this.GetNodeByPosition(position).Element;
+        }
+
+        /// <summary>
+        /// Removes and returns the element from the specified position in the list.
+        /// </summary>
+        /// <param name="position">The integer based position of the element to retrieve.</param>
+        /// <returns>The element contained in the removed node.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the list is empty</exception>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        public T Remove(int position)
+        {
+            Node<T> nodeToRemove = this.GetNodeByPosition(position);
+
+            if (this.Size == 1)
+            {
+                this.Head = null;
+                this.Tail = null;
+            }
+            else
+            {
+                if (position == 1)
+                {
+                    this.Head = this.Head.Next;
+                    this.Head.Previous = null;
+                }
+                else if (position == this.Size)
+                {
+                    this.Tail = this.Tail.Previous;
+                    this.Tail.Next = null;
+                }
+                else
+                {
+                    nodeToRemove.Next.Previous = nodeToRemove.Previous;
+                    nodeToRemove.Previous.Next = nodeToRemove.Next;
+                }
+            }
+
+            this.Size--;
+
+            return nodeToRemove.Element;
+        }
+
+        /// <summary>
+        /// Replaces the element at the specified position with a new element and returns the old element.
+        /// </summary>
+        /// <param name="element">The new element to be set.</param>
+        /// <param name="position">The integer based position of the element to retrieve.</param>
+        /// <returns>The original element that was replaced.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the list, or element is empty</exception>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        public T Set(T element, int position)
+        {
+            this.ThrowNullElement(element);
+
+            Node<T> oldNode = this.GetNodeByPosition(position);
+            T oldElement = oldNode.Element;
+            oldNode.Element = element;
+
+            return oldElement;
+        }
+
+        /// <summary>
+        /// Adds a new node containing the specified element after the node at the specified position.
+        /// </summary>
+        /// <param name="element">The element to be added.</param>
+        /// <param name="position">The integer based position of the element to retrieve.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the list, or element is empty</exception>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        public void AddAfter(T element, int position)
+        {
+            this.ThrowNullElement(element);
+
+            Node<T> nodeBeforeAdd = this.GetNodeByPosition(position);
+            Node<T> newNode = new Node<T>(element);
+
+            if (position == this.Size)
+            {
+                this.Tail.Next = newNode;
+                newNode.Previous = this.Tail;
+                newNode.Next = null;
+                this.Tail = newNode;
+            }
+            else
+            {
+                newNode.Next = nodeBeforeAdd.Next;
+                nodeBeforeAdd.Next.Previous = newNode;
+                nodeBeforeAdd.Next = newNode;
+                newNode.Previous = nodeBeforeAdd;
+            }
+
+            this.Size++;
+        }
+
+        /// <summary>
+        /// Adds a new node containing the specified element before the node at the specified position.
+        /// </summary>
+        /// <param name="element">The element to be added.</param>
+        /// <param name="position">The integer based position of the element to retrieve.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the list, or element is empty</exception>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        public void AddBefore(T element, int position)
+        {
+            this.ThrowNullElement(element);
+
+            Node<T> nodeAfterAdd = this.GetNodeByPosition(position);
+            Node<T> newNode = new Node<T>(element);
+
+            if (position == 1)
+            {
+                this.Head.Previous = newNode;
+                newNode.Next = this.Head;
+                newNode.Previous = null;
+                this.Head = newNode;
+            }
+            else
+            {
+                newNode.Previous = nodeAfterAdd.Previous;
+                nodeAfterAdd.Previous.Next = newNode;
+                nodeAfterAdd.Previous = newNode;
+                newNode.Next = nodeAfterAdd;
+            }
+
+            this.Size++;
+
+        }
+
+        // Helper Methods
+
+        /// <summary>
+        /// Retrieves the node at the specified position in the linked list.
+        /// </summary>
+        /// <param name="position">The integer based position of the element to retrieve.</param>
+        /// <returns>The node at the specified position.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the list is empty</exception>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        private Node<T> GetNodeByPosition(int position)
+        {
+            ThrowEmptyList();
+            ThrowInvalidPosition(position, this.Size);
+
+            Node<T> current = this.Head;
+
+            for (int i = 1; i < position; i++)
+            {
+                current = current.Next;
+            }
+
+            return current;
+        }
+
+        /// <summary>
+        /// Validates that the elements added to the list are not null.
+        /// </summary>
+        /// <param name="element">The element to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the provided element is null.</exception>
+        private void ThrowNullElement(T element)
+        {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        /// <summary>
+        /// Validates the given position.
+        /// </summary>
+        /// <param name="position">The position to validate.</param>
+        /// <param name="size">The current size of the list.</param>
+        /// <exception cref="ApplicationException">Thrown if the position is larger than the size of the list, 0, or negative.</exception>
+        private void ThrowInvalidPosition(int position, int size)
+        {
+            if (position > size || position <= 0)
+            {
+                throw new ApplicationException();
+            }
+        }
+
         /// <summary>
         /// Checks if the provided element is null and throws an ArgumentNullException if it is.
         /// </summary>
@@ -165,7 +407,7 @@ namespace TestLibrary
         /// <exception cref="ArgumentNullException">Thrown when the provided element is null.</exception>
         private void ThrowNotNull(T element)
         {
-            if(element == null)
+            if (element == null)
             {
                 throw new ArgumentNullException();
             }
@@ -175,44 +417,12 @@ namespace TestLibrary
         /// Checks if the linked list is empty and throws an ApplicationException if it is.
         /// </summary>
         /// <exception cref="ApplicationException">Thrown when the linked list is empty.</exception>
-        private void ThrowIsEmpty()
+        private void ThrowEmptyList()
         {
             if (this.IsEmpty())
             {
                 throw new ApplicationException("List is empty");
             }
-        }
-
-        // Milestone #2
-
-        public T RemoveFirst()
-        {
-            return
-        }
-
-        public T RemoveLast()
-        {
-            return
-        }
-
-        public T Get(int position)
-        {
-            return
-        }
-
-        public T Remove(int position)
-        {
-            return
-        }
-
-        public void AddAfter(T element, int position)
-        {
-
-        }
-
-        public void AddBefore(T element, int position)
-        {
-
         }
     }
 }
