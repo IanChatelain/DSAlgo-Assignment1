@@ -28,9 +28,10 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the Node class with the specified element, and next node.
+        /// Initializes a new instance of the Node class with the specified element and next node.
         /// </summary>
         /// <param name="element">The element to store in the node.</param>
+        /// <param name="previousNode">The previous node in the linked list.</param>
         /// <param name="nextNode">The next node in the linked list.</param>
         public Node(T element, Node<T> nextNode)
         {

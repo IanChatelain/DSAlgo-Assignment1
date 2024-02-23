@@ -9,19 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="bin\Debug\net8.0\MazeTests.cs" />
-    <Compile Include="bin\Debug\net8.0\StackTests.cs" />
+    <Compile Include="bin\Debug\MazeTests.cs" />
+    <Compile Include="bin\Debug\StackTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="bin\Debug\net8.0\simpleWithExit.maze" />
-    <None Include="bin\Debug\net8.0\simpleWithoutExit.maze" />
+    <None Include="bin\Debug\simpleWithExit.maze" />
+    <None Include="bin\Debug\simpleWithoutExit.maze" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0-preview-24080-01" />
     <PackageReference Include="NUnit" Version="4.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net8.0\" />
   </ItemGroup>
 
 </Project>
