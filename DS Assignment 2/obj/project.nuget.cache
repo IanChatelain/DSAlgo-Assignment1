@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "FFwLAmrV0D0M4QwPZLXIyZ5IcVZdluIL9EQ95YB3XdUEYW+h6d5fJkUTnvkaAWixiM6mKA8mjHtkUnHfYIsJNQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\arkli\\source\\repos\\DS Assignment 2\\DS Assignment 2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\arkli\\.nuget\\packages\\microsoft.codecoverage\\17.10.0-preview-24080-01\\microsoft.codecoverage.17.10.0-preview-24080-01.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\microsoft.net.test.sdk\\17.10.0-preview-24080-01\\microsoft.net.test.sdk.17.10.0-preview-24080-01.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.10.0-preview-24080-01\\microsoft.testplatform.objectmodel.17.10.0-preview-24080-01.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\microsoft.testplatform.testhost\\17.10.0-preview-24080-01\\microsoft.testplatform.testhost.17.10.0-preview-24080-01.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\nunit\\4.0.1\\nunit.4.0.1.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\nunit3testadapter\\4.5.0\\nunit3testadapter.4.5.0.nupkg.sha512",
+    "C:\\Users\\arkli\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}
