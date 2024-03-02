@@ -17,7 +17,12 @@ namespace TestLibrary
 
         public Maze(int startingRow, int startingColumn, char[][] existingMaze)
         {
+            this.StartingPoint = new Point(startingRow, startingColumn);
             this.charMaze = existingMaze;
+            this.RowLength = charMaze.Length;
+            this.ColumnLength = charMaze[0].Length;
+
+            this.ThrowInvalidStart();
         }
 
         public char[][] GetMaze()
@@ -52,18 +57,18 @@ namespace TestLibrary
             {
                 StreamReader sr = new StreamReader(fileName);
 
-                string dimensions = sr.ReadLine();
-                int rows = int.Parse(dimensions.Split(' ')[0]);
-                int columns = int.Parse(dimensions.Split(' ')[1]);
-                this.RowLength = rows;
-                this.ColumnLength = columns;
+                // First line.
+                int[] dimensions = this.ParseIntsFromString(sr.ReadLine());
+                this.RowLength = dimensions[0];
+                this.ColumnLength = dimensions[1];
+
                 mazeArray = new char[this.RowLength][];
 
-                string startingCoordinates = sr.ReadLine();
-                int x = int.Parse(startingCoordinates.Split(' ')[0]);
-                int y = int.Parse(startingCoordinates.Split(' ')[1]);
-                this.StartingPoint = new Point(x, y);
+                // Second line.
+                int[] startingCoordinates = this.ParseIntsFromString(sr.ReadLine());
+                this.StartingPoint = new Point(startingCoordinates[0], startingCoordinates[1]);
 
+                // Third and remaining lines.
                 string mazeLine = sr.ReadLine();
 
                 while (mazeLine != null)
@@ -71,7 +76,6 @@ namespace TestLibrary
                     mazeArray[counter++] = mazeLine.ToCharArray();
                     mazeLine = sr.ReadLine();
                 }
-
             }
             catch (Exception e)
             {
@@ -79,6 +83,21 @@ namespace TestLibrary
             }
 
             return mazeArray;
+        }
+
+        private int[] ParseIntsFromString(string lineInput)
+        {
+            int firstInt = int.Parse(lineInput.Split(' ')[0]);
+            int secondInt = int.Parse(lineInput.Split(' ')[1]);
+            int[] ints = [firstInt, secondInt];
+            return ints;
+        }
+
+        private bool InvalidStart() => this.charMaze[StartingPoint.Row][StartingPoint.Column] != ' ';
+
+        private void ThrowInvalidStart()
+        {
+            if (this.InvalidStart()) throw new ApplicationException();
         }
     }
 }
