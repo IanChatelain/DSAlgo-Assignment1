@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DS Assignment 2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31833d6f9729696f4d0a62f079991436483c931d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9b3f0cb5fb7aade5425507cc639b1ebdb81eaa7")]
 [assembly: System.Reflection.AssemblyProductAttribute("DS Assignment 2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DS Assignment 2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

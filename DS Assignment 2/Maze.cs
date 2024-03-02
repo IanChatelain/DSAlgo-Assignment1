@@ -51,28 +51,25 @@ namespace TestLibrary
             try
             {
                 StreamReader sr = new StreamReader(fileName);
-                string line = sr.ReadLine();
 
-                int x = int.Parse(line.Split(' ')[0]);
-                int y = int.Parse(line.Split(' ')[1]);
-
-                this.RowLength = x;
-                this.ColumnLength = y;
+                string dimensions = sr.ReadLine();
+                int rows = int.Parse(dimensions.Split(' ')[0]);
+                int columns = int.Parse(dimensions.Split(' ')[1]);
+                this.RowLength = rows;
+                this.ColumnLength = columns;
                 mazeArray = new char[this.RowLength][];
-                line = sr.ReadLine();
 
-                x = int.Parse(line.Split(' ')[0]);
-                y = int.Parse(line.Split(' ')[1]);
-
+                string startingCoordinates = sr.ReadLine();
+                int x = int.Parse(startingCoordinates.Split(' ')[0]);
+                int y = int.Parse(startingCoordinates.Split(' ')[1]);
                 this.StartingPoint = new Point(x, y);
-                line = sr.ReadLine();
 
+                string mazeLine = sr.ReadLine();
 
-                while (line != null)
+                while (mazeLine != null)
                 {
-                    mazeArray[counter] = line.ToCharArray();
-                    line = sr.ReadLine();
-                    counter++;
+                    mazeArray[counter++] = mazeLine.ToCharArray();
+                    mazeLine = sr.ReadLine();
                 }
 
             }
