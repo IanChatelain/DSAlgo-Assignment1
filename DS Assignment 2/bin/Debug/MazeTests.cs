@@ -143,225 +143,225 @@ namespace TestLibrary
             stackPath.Push(new Point(1, 1));
         }
 
-        //#region Constructor Tests
+        #region Constructor Tests
+        /// <summary>
+        /// Checks to make sure the constructor instantializes the appropriate variables
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existing_maze_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+
+            ClassicAssert.That(maze, Is.Not.Null);
+            ClassicAssert.That(maze.RowLength, Is.EqualTo(basicMaze.Length));
+            ClassicAssert.That(maze.ColumnLength, Is.EqualTo(basicMaze[0].Length));
+            ClassicAssert.That(maze.StartingPoint.Row, Is.EqualTo(startingPoint.Row));
+            ClassicAssert.That(maze.StartingPoint.Column, Is.EqualTo(startingPoint.Column));
+
+            char[][] existingMaze = maze.GetMaze();
+
+            for (int i = 0; i < existingMaze.Length; i++)
+            {
+                for (int k = 0; k < existingMaze[i].Length; k++)
+                {
+                    ClassicAssert.That(existingMaze[i][k], Is.EqualTo(basicMaze[i][k]));
+                }
+            }
+        }
+
+        /// <summary>
+        /// If the existing maze starts on the exit, throw an exception
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existingMaze_throws_error_on_Exit_as_starting_point_Test()
+        {
+            Maze maze;
+            ClassicAssert.That(() => maze = new Maze(endingPoint.Row, endingPoint.Column, basicMaze), Throws.Exception.TypeOf<ApplicationException>());
+        }
+        /// <summary>
+        /// If the existing maze starts in a wall, throw an exception
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existingMaze_throws_error_on_Wall_as_starting_point_Test()
+        {
+            Maze maze;
+            ClassicAssert.That(() => maze = new Maze(0, 0, basicMaze), Throws.Exception.TypeOf<ApplicationException>());
+        }
+        /// <summary>
+        /// If the existing maze has an invalid Row, throw an exception
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existingMaze_throws_error_on_negative_row_Test()
+        {
+            Maze maze;
+            ClassicAssert.That(() => maze = new Maze(-1, startingPoint.Column, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
+        }
+        /// <summary>
+        /// If the existing maze has an invalid Column, throw an exception
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existingMaze_throws_error_on_negative_column_Test()
+        {
+            Maze maze;
+            ClassicAssert.That(() => maze = new Maze(startingPoint.Row, -1, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
+        }
+        /// <summary>
+        /// If the existing maze has an invalid Row, throw an exception
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existingMaze_throws_error_on_row_value_greater_than_maze_Test()
+        {
+            Maze maze;
+            ClassicAssert.That(() => maze = new Maze(basicMaze.Length, startingPoint.Column, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
+        }
+        /// <summary>
+        /// If the existing maze has an invalid Column, throw an exception
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_existingMaze_throws_error_on_column_value_greater_than_maze_Test()
+        {
+            Maze maze;
+            ClassicAssert.That(() => maze = new Maze(startingPoint.Row, basicMaze[0].Length, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
+        }
+
+        /// <summary>
+        /// Checks to make sure the constructor instantializes the appropriate variables from the file
+        /// </summary>
+        [Test]
+        public void Maze_Constructor_file_maze_Test()
+        {
+            Maze maze = new Maze(simpleWithExit);
+
+            ClassicAssert.That(maze, Is.Not.Null);
+
+            // note that the file is the same maze as the hardcoded char array basicMaze
+            ClassicAssert.That(maze.RowLength, Is.EqualTo(basicMaze.Length));
+            ClassicAssert.That(maze.ColumnLength, Is.EqualTo(basicMaze[0].Length));
+            ClassicAssert.That(maze.StartingPoint.Row, Is.EqualTo(startingPoint.Row));
+            ClassicAssert.That(maze.StartingPoint.Column, Is.EqualTo(startingPoint.Column));
+
+            char[][] fileMaze = maze.GetMaze();
+
+            for (int i = 0; i < fileMaze.Length; i++)
+            {
+                for (int k = 0; k < fileMaze[i].Length; k++)
+                {
+                    ClassicAssert.That(fileMaze[i][k], Is.EqualTo(basicMaze[i][k]));
+                }
+            }
+        }
+
+        #endregion
+
+        #region PrintMaze()
         ///// <summary>
-        ///// Checks to make sure the constructor instantializes the appropriate variables
+        ///// Tests PrintMaze() returns a string version of the maze.
         ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existing_maze_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+        [Test]
+        public void PrintMaze_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
 
-        //    ClassicAssert.That(maze, Is.Not.Null);
-        //    ClassicAssert.That(maze.RowLength, Is.EqualTo(basicMaze.Length));
-        //    ClassicAssert.That(maze.ColumnLength, Is.EqualTo(basicMaze[0].Length));
-        //    ClassicAssert.That(maze.StartingPoint.Row, Is.EqualTo(startingPoint.Row));
-        //    ClassicAssert.That(maze.StartingPoint.Column, Is.EqualTo(startingPoint.Column));
+            String mazeOutput = maze.PrintMaze();
 
-        //    char[][] existingMaze = maze.GetMaze();
+            ClassicAssert.That(mazeOutput, Is.EqualTo(basicMazeOutput));
+        }
+        #endregion
 
-        //    for (int i = 0; i < existingMaze.Length; i++)
-        //    {
-        //        for (int k = 0; k < existingMaze[i].Length; k++)
-        //        {
-        //            ClassicAssert.That(existingMaze[i][k], Is.EqualTo(basicMaze[i][k]));
-        //        }
-        //    }
-        //}
+        #region DepthFirstSearch()
+        ///// <summary>
+        ///// Tests DepthFirstSearch() returns appropriate error string when used on a maze without an exit.
+        ///// </summary>
+        [Test]
+        public void DepthFirstSearch_maze_with_no_exit_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMazeNoExit);
+
+            string mazeOutput = maze.DepthFirstSearch();
+            ClassicAssert.That(mazeOutput, Is.EqualTo(basicMazeNoExitSearched));
+        }
 
         ///// <summary>
-        ///// If the existing maze starts on the exit, throw an exception
+        ///// Tests DepthFirstSearch() returns path to follow string when used on a maze with an exit.
         ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existingMaze_throws_error_on_Exit_as_starting_point_Test()
-        //{
-        //    Maze maze;
-        //    ClassicAssert.That(() => maze = new Maze(endingPoint.Row, endingPoint.Column, basicMaze), Throws.Exception.TypeOf<ApplicationException>());
-        //}
+        [Test]
+        public void DepthFirstSearch_maze_with_exit_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+
+            string mazeOutput = maze.DepthFirstSearch();
+            ClassicAssert.That(mazeOutput, Is.EqualTo(stringPath + basicMazeSearched));
+        }
+        #endregion
+
+        #region GetPathToFollow()
         ///// <summary>
-        ///// If the existing maze starts in a wall, throw an exception
+        ///// Tests GetPathToFollow() throws an exception when we have not yet searched the maze.
         ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existingMaze_throws_error_on_Wall_as_starting_point_Test()
-        //{
-        //    Maze maze;
-        //    ClassicAssert.That(() => maze = new Maze(0, 0, basicMaze), Throws.Exception.TypeOf<ApplicationException>());
-        //}
-        ///// <summary>
-        ///// If the existing maze has an invalid Row, throw an exception
-        ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existingMaze_throws_error_on_negative_row_Test()
-        //{
-        //    Maze maze;
-        //    ClassicAssert.That(() => maze = new Maze(-1, startingPoint.Column, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
-        //}
-        ///// <summary>
-        ///// If the existing maze has an invalid Column, throw an exception
-        ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existingMaze_throws_error_on_negative_column_Test()
-        //{
-        //    Maze maze;
-        //    ClassicAssert.That(() => maze = new Maze(startingPoint.Row, -1, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
-        //}
-        ///// <summary>
-        ///// If the existing maze has an invalid Row, throw an exception
-        ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existingMaze_throws_error_on_row_value_greater_than_maze_Test()
-        //{
-        //    Maze maze;
-        //    ClassicAssert.That(() => maze = new Maze(basicMaze.Length, startingPoint.Column, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
-        //}
-        ///// <summary>
-        ///// If the existing maze has an invalid Column, throw an exception
-        ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_existingMaze_throws_error_on_column_value_greater_than_maze_Test()
-        //{
-        //    Maze maze;
-        //    ClassicAssert.That(() => maze = new Maze(startingPoint.Row, basicMaze[0].Length, basicMaze), Throws.Exception.TypeOf<IndexOutOfRangeException>());
-        //}
+        [Test]
+        public void GetPathToFollow_before_search_throws_exception_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+            ClassicAssert.That(() => maze.GetPathToFollow(), Throws.Exception.TypeOf<ApplicationException>());
+        }
 
         ///// <summary>
-        ///// Checks to make sure the constructor instantializes the appropriate variables from the file
+        ///// Tests GetPathToFollow() returns an empty stack when no exit found.
         ///// </summary>
-        //[Test]
-        //public void Maze_Constructor_file_maze_Test()
-        //{
-        //    Maze maze = new Maze(simpleWithExit);
+        [Test]
+        public void GetPathToFollow_on_maze_with_no_exit_returns_empty_stack_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMazeNoExit);
+            maze.DepthFirstSearch();
+            Stack<Point> path = maze.GetPathToFollow();
+            ClassicAssert.That(path.IsEmpty(), Is.True);
+        }
 
-        //    ClassicAssert.That(maze, Is.Not.Null);
+        ///// <summary>
+        ///// Tests GetPathToFollow() returns a stack containing the path used from start (at Top()) to end (at bottom).
+        ///// </summary>
+        [Test]
+        public void GetPathToFollow_on_maze_with_exit_returns_ordered_stack_path_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+            maze.DepthFirstSearch();
+            Stack<Point> path = maze.GetPathToFollow();
+            ClassicAssert.That(path.IsEmpty(), Is.False);
 
-        //    // note that the file is the same maze as the hardcoded char array basicMaze
-        //    ClassicAssert.That(maze.RowLength, Is.EqualTo(basicMaze.Length));
-        //    ClassicAssert.That(maze.ColumnLength, Is.EqualTo(basicMaze[0].Length));
-        //    ClassicAssert.That(maze.StartingPoint.Row, Is.EqualTo(startingPoint.Row));
-        //    ClassicAssert.That(maze.StartingPoint.Column, Is.EqualTo(startingPoint.Column));
+            while (!path.IsEmpty())
+            {
+                ClassicAssert.That(path.Pop().ToString(), Is.EqualTo(stackPath.Pop().ToString()));
+            }
+        }
 
-        //    char[][] fileMaze = maze.GetMaze();
+        ///// <summary>
+        ///// Tests GetPathToFollow() returns a stack containing the path used from start (at Top()) to end (at bottom), will work when run twice in a row!
+        ////  Note: this test is to ensure you are not destroying your created Stack after running GetPathToFollow() the first time.
+        ////  You should be returning a copy of the stack.
+        ///// </summary>
+        [Test]
+        public void GetPathToFollow_works_the_same_way_when_run_twice_in_a_row_Test()
+        {
+            Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+            maze.DepthFirstSearch();
+            Stack<Point> path = maze.GetPathToFollow();
+            ClassicAssert.That(path.IsEmpty(), Is.False);
 
-        //    for (int i = 0; i < fileMaze.Length; i++)
-        //    {
-        //        for (int k = 0; k < fileMaze[i].Length; k++)
-        //        {
-        //            ClassicAssert.That(fileMaze[i][k], Is.EqualTo(basicMaze[i][k]));
-        //        }
-        //    }
-        //}
+            while (!stackPath.IsEmpty())
+            {
+                ClassicAssert.That(path.Pop().ToString(), Is.EqualTo(stackPath.Pop().ToString()));
+            }
 
-        //#endregion
+            ResetReverseStack();
 
-        //#region PrintMaze()
-        /////// <summary>
-        /////// Tests PrintMaze() returns a string version of the maze.
-        /////// </summary>
-        //[Test]
-        //public void PrintMaze_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
+            Stack<Point> path2 = maze.GetPathToFollow();
+            ClassicAssert.That(path2.IsEmpty(), Is.False);
 
-        //    String mazeOutput = maze.PrintMaze();
-
-        //    ClassicAssert.That(mazeOutput, Is.EqualTo(basicMazeOutput));
-        //}
-        //#endregion
-
-        //#region DepthFirstSearch()
-        /////// <summary>
-        /////// Tests DepthFirstSearch() returns appropriate error string when used on a maze without an exit.
-        /////// </summary>
-        //[Test]
-        //public void DepthFirstSearch_maze_with_no_exit_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMazeNoExit);
-
-        //    string mazeOutput = maze.DepthFirstSearch();
-        //    ClassicAssert.That(mazeOutput, Is.EqualTo(basicMazeNoExitSearched));
-        //}
-
-        /////// <summary>
-        /////// Tests DepthFirstSearch() returns path to follow string when used on a maze with an exit.
-        /////// </summary>
-        //[Test]
-        //public void DepthFirstSearch_maze_with_exit_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
-
-        //    string mazeOutput = maze.DepthFirstSearch();
-        //    ClassicAssert.That(mazeOutput, Is.EqualTo(stringPath + basicMazeSearched));
-        //}
-        //#endregion
-
-        //#region GetPathToFollow()
-        /////// <summary>
-        /////// Tests GetPathToFollow() throws an exception when we have not yet searched the maze.
-        /////// </summary>
-        //[Test]
-        //public void GetPathToFollow_before_search_throws_exception_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
-        //    ClassicAssert.That(() => maze.GetPathToFollow(), Throws.Exception.TypeOf<ApplicationException>());
-        //}
-
-        /////// <summary>
-        /////// Tests GetPathToFollow() returns an empty stack when no exit found.
-        /////// </summary>
-        //[Test]
-        //public void GetPathToFollow_on_maze_with_no_exit_returns_empty_stack_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMazeNoExit);
-        //    maze.DepthFirstSearch();
-        //    Stack<Point> path = maze.GetPathToFollow();
-        //    ClassicAssert.That(path.IsEmpty(), Is.True);
-        //}
-
-        /////// <summary>
-        /////// Tests GetPathToFollow() returns a stack containing the path used from start (at Top()) to end (at bottom).
-        /////// </summary>
-        //[Test]
-        //public void GetPathToFollow_on_maze_with_exit_returns_ordered_stack_path_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
-        //    maze.DepthFirstSearch();
-        //    Stack<Point> path = maze.GetPathToFollow();
-        //    ClassicAssert.That(path.IsEmpty(), Is.False);
-
-        //    while (!path.IsEmpty())
-        //    {
-        //        ClassicAssert.That(path.Pop().ToString(), Is.EqualTo(stackPath.Pop().ToString()));
-        //    }
-        //}
-
-        /////// <summary>
-        /////// Tests GetPathToFollow() returns a stack containing the path used from start (at Top()) to end (at bottom), will work when run twice in a row!
-        //////  Note: this test is to ensure you are not destroying your created Stack after running GetPathToFollow() the first time.
-        //////  You should be returning a copy of the stack.
-        /////// </summary>
-        //[Test]
-        //public void GetPathToFollow_works_the_same_way_when_run_twice_in_a_row_Test()
-        //{
-        //    Maze maze = new Maze(startingPoint.Row, startingPoint.Column, basicMaze);
-        //    maze.DepthFirstSearch();
-        //    Stack<Point> path = maze.GetPathToFollow();
-        //    ClassicAssert.That(path.IsEmpty(), Is.False);
-            
-        //    while (!stackPath.IsEmpty())
-        //    {
-        //        ClassicAssert.That(path.Pop().ToString(), Is.EqualTo(stackPath.Pop().ToString()));
-        //    }
-
-        //    ResetReverseStack();
-
-        //    Stack<Point> path2 = maze.GetPathToFollow();
-        //    ClassicAssert.That(path2.IsEmpty(), Is.False);
-
-        //    while (!stackPath.IsEmpty())
-        //    {
-        //        ClassicAssert.That(path2.Pop().ToString(), Is.EqualTo(stackPath.Pop().ToString()));
-        //    }
-        //}
-        //#endregion
+            while (!stackPath.IsEmpty())
+            {
+                ClassicAssert.That(path2.Pop().ToString(), Is.EqualTo(stackPath.Pop().ToString()));
+            }
+        }
+        #endregion
     }
 }

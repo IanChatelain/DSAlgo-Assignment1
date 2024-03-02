@@ -23,7 +23,7 @@
         /// Returns a representation of the Point class.
         /// </summary>
         /// <returns>A string that represents the coordinates of a point.</returns>
-        public override string? ToString()
+        public override string ToString()
         {
             return string.Format("[{0},{1}]", this.Row, this,Column);
         }
