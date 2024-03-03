@@ -77,18 +77,18 @@
         /// <returns>A string detailing the path found, or a message indicating no exit was found, and the maze.</returns>
         public string DepthFirstSearch()
         {
-            Stack<Point> stack = new Stack<Point>();
+            this.stack.Clear();
 
             // Add starting location
-            stack.Push(this.StartingPoint);
+            this.stack.Push(this.StartingPoint);
 
             // Get current location
-            Point location = stack.Top();
+            Point location;
 
             // Execute search
-            while (stack.Size > 0)
+            while (this.stack.Size > 0)
             {
-                location = stack.Top();
+                location = this.stack.Top();
 
                 // Exit found
                 if (this.charMaze[location.Row][location.Column] == 'E')
@@ -103,24 +103,24 @@
                 if (this.charMaze[location.Row + 1][location.Column] == ' ' || this.charMaze[location.Row + 1][location.Column] == 'E')
                 {
                     // South
-                    stack.Push(new Point(location.Row + 1, location.Column));
+                    this.stack.Push(new Point(location.Row + 1, location.Column));
                 }
                 else
                 {
                     if (this.charMaze[location.Row][location.Column + 1] == ' ' || this.charMaze[location.Row][location.Column + 1] == 'E')
                     {
                         // East
-                        stack.Push(new Point(location.Row, location.Column + 1));
+                        this.stack.Push(new Point(location.Row, location.Column + 1));
                     }
                     else if (this.charMaze[location.Row][location.Column - 1] == ' ' || this.charMaze[location.Row][location.Column - 1] == 'E')
                     {
                         // West
-                        stack.Push(new Point(location.Row, location.Column - 1));
+                        this.stack.Push(new Point(location.Row, location.Column - 1));
                     }
                     else if (this.charMaze[location.Row - 1][location.Column] == ' ' || this.charMaze[location.Row - 1][location.Column] == ' ')
                     {
                         // North
-                        stack.Push(new Point(location.Row - 1, location.Column));
+                        this.stack.Push(new Point(location.Row - 1, location.Column));
                     }
                     else
                     {
@@ -128,37 +128,30 @@
                         this.charMaze[location.Row][location.Column] = 'V';
 
                         // Backtrack
-                        stack.Pop();
+                        this.stack.Pop();
                     }
                 }
             }
 
+            this.searchComplete = true;
+
             // Reverse stack for output
-            Stack<Point> reversedStack = GetReverseStackCopy(this.stack);
+            Stack<Point> pathStack = GetPathToFollow();
             string outputComment = "No exit found in maze!\n\n";
             string outputMaze = PrintMaze();
-            string steps = "";
+            string path = "";
 
             if (exitFound)
             {
-                outputComment = string.Format("Path to follow from Start {0} to Exit {1} - {2} steps:\n", this.StartingPoint.ToString(), stack.Top(), stack.Size.ToString());
+                outputComment = string.Format("Path to follow from Start {0} to Exit {1} - {2} steps:\n", this.StartingPoint.ToString(), this.stack.Top(), this.stack.Size.ToString());
             }
 
-            while (stack.Size > 0)
+            while (pathStack.Size > 0)
             {
-                Point p = stack.Pop();
-                this.stack.Push(p);
-                reversedStack.Push(p);
+                path += string.Format("{0}\n", pathStack.Pop());
             }
 
-            while (reversedStack.Size > 0)
-            {
-                steps += string.Format("{0}\n", reversedStack.Pop());
-            }
-
-            this.searchComplete = true;
-
-            return outputComment + steps + outputMaze;
+            return outputComment + path + outputMaze;
         }
 
         /// <summary>
@@ -171,7 +164,7 @@
             ThrowInvalidPath(this.stack);
             ThrowSearchNotComplete();
 
-            return GetStackCopy(this.stack);
+            return GetReverseStackCopy(this.stack);
         }
 
         // Helper Methods
@@ -301,7 +294,7 @@
         /// <exception cref="ApplicationException">Thrown if no valid path exists.</exception>
         private void ThrowInvalidPath(Stack<Point> stack)
         {
-            if (exitFound && stack == null)
+            if (exitFound && stack.IsEmpty())
             {
                 throw new ApplicationException();
             }
