@@ -138,36 +138,44 @@
             ThrowInvalidPath(this.stack);
             ThrowSearchNotComplete();
 
-            Stack<Point> stackCopy = new Stack<Point>();
-
-            while (this.stack.Size > 0)
-            {
-                Point p = this.stack.Pop();
-                stackCopy.Push(p);
-            }
-
-            return GetReverseStackCopy(stackCopy);
+            return GetStackCopy(this.stack);
         }
 
         // Helper Methods
 
-        private Stack<Point> GetReverseStackCopy(Stack<Point> stack)
+        private Stack<Point> GetStackCopy(Stack<Point> stack)
         {
-            Stack<Point> reversedStack = new Stack<Point>();
+            Stack<Point> tempStack1 = new Stack<Point>();
+            Stack<Point> tempStack2 = new Stack<Point>();
 
             while (stack.Size > 0)
             {
                 Point p = stack.Pop();
-                this.reversedCopy.Push(p);
-                reversedStack.Push(p);
+                tempStack1.Push(p);
             }
 
-            while (this.reversedCopy.Size > 0)
+            while (tempStack1.Size > 0)
             {
-                this.stack.Push(this.reversedCopy.Pop());
+                Point p = tempStack1.Pop();
+                tempStack2.Push(p);
+                stack.Push(p);
             }
 
-            return reversedStack;
+            return tempStack2;
+        }
+
+        private Stack<Point> GetReverseStackCopy(Stack<Point> stack)
+        {
+            Stack<Point> tempStack1 = new Stack<Point>();
+
+            while (stack.Size > 0)
+            {
+                Point p = stack.Pop();
+                tempStack1.Push(p);
+                stack.Push(p);
+            }
+
+            return tempStack1;
         }
 
         private char[][] ReadMazeFile(string fileName)
