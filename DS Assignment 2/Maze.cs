@@ -32,13 +32,83 @@ namespace TestLibrary
 
         public string PrintMaze()
         {
-            return default;
+            string output = "";
+            for (int i = 0; i < this.charMaze.Length; i++)
+            {
+                if (i > 0)
+                {
+                    output += "\n";
+
+                }
+
+                for (int j = 0; j < this.charMaze[i].Length; j++)
+                {
+                    output += charMaze[i][j];
+                }
+            }
+            return output;
         }
 
-        // Private?
         public string DepthFirstSearch()
         {
-            return default;
+            Stack<Point> stack = new Stack<Point>();
+
+            // Add starting location
+            stack.Push(this.StartingPoint);
+
+            // Get location.
+            Point location = stack.Top();
+
+            while (stack.Size > 0)
+            {
+                location = stack.Top();
+
+                if (this.charMaze[location.Row][location.Column] == 'E')
+                {
+                    break;
+                }
+
+                this.charMaze[location.Row][location.Column] = 'V';
+
+                if (this.charMaze[location.Row + 1][location.Column] == ' ')
+                {
+                    // Move south
+                    stack.Push(new Point(location.Row + 1, location.Column));
+                }
+                else
+                {
+                    if (this.charMaze[location.Row][location.Column + 1] == ' ')
+                    {
+                        // Move east
+                        stack.Push(new Point(location.Row, location.Column + 1));
+                    }
+                    else if (this.charMaze[location.Row][location.Column - 1] == ' ')
+                    {
+                        // Move west
+                        stack.Push(new Point(location.Row, location.Column - 1));
+                    }
+                    else if (this.charMaze[location.Row - 1][location.Column] == ' ')
+                    {
+                        // Move north
+                        stack.Push(new Point(location.Row - 1, location.Column));
+                    }
+                    else
+                    {
+                        stack.Pop();
+                    }
+                }
+            }
+
+            //Stack<Point> mazePath = new Stack<Point>();
+
+            //while (stack.Size > 0)
+            //{
+            //    mazePath.Push(stack.Pop());
+            //}
+
+            string output = "Path to follow from Start " + this.StartingPoint.ToString() + " to Exit " + stack.Top().ToString() + " - " + stack.Size.ToString() + " steps:\n" + PrintMaze();
+
+            return output;
         }
 
         public Stack<Point> GetPathToFollow()
@@ -90,6 +160,7 @@ namespace TestLibrary
             int firstInt = int.Parse(lineInput.Split(' ')[0]);
             int secondInt = int.Parse(lineInput.Split(' ')[1]);
             int[] ints = [firstInt, secondInt];
+
             return ints;
         }
 
