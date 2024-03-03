@@ -1,5 +1,8 @@
 ﻿namespace TestLibrary
 {
+    /// <summary>
+    /// Represents a maze and provides functionality for maze navigation using Depth-First Search.
+    /// </summary>
     public class Maze
     {
         private char[][] charMaze;
@@ -7,15 +10,25 @@
         public int RowLength { get; set; }
         public int ColumnLength { get; set; }
         private Stack<Point> stack = new Stack<Point>();
-        private Stack<Point> reversedCopy = new Stack<Point>();
         private bool exitFound = false;
         private bool searchComplete = false;
 
+        /// <summary>
+        /// Initializes a new instance of the Maze class by reading maze details from a file.
+        /// </summary>
+        /// <param name="fileName">The name of the file containing the maze data.</param>
         public Maze(string fileName)
         {
             this.charMaze = this.ReadMazeFile(fileName);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the Maze class with a specified starting point and existing maze structure.
+        /// </summary>
+        /// <param name="startingRow">The row index of the starting point.</param>
+        /// <param name="startingColumn">The column index of the starting point.</param>
+        /// <param name="existingMaze">The 2D character array representing the maze.</param>
+        /// <exception cref="ApplicationException">Thrown if start point is invalid.</exception>
         public Maze(int startingRow, int startingColumn, char[][] existingMaze)
         {
             this.StartingPoint = new Point(startingRow, startingColumn);
@@ -26,11 +39,19 @@
             this.ThrowInvalidStart();
         }
 
+        /// <summary>
+        /// Retrieves the maze structure.
+        /// </summary>
+        /// <returns>A 2D array of characters representing the maze.</returns>
         public char[][] GetMaze()
         {
             return this.charMaze;
         }
 
+        /// <summary>
+        /// Generates a string representation of the maze for display.
+        /// </summary>
+        /// <returns>A string containing the visual representation of the maze.</returns>
         public string PrintMaze()
         {
             string output = "";
@@ -50,6 +71,10 @@
             return output;
         }
 
+        /// <summary>
+        /// Executes the Depth-First Search algorithm to find a path through the maze.
+        /// </summary>
+        /// <returns>A string detailing the path found, or a message indicating no exit was found, and the maze.</returns>
         public string DepthFirstSearch()
         {
             Stack<Point> stack = new Stack<Point>();
@@ -60,6 +85,7 @@
             // Get current location
             Point location = stack.Top();
 
+            // Execute search
             while (stack.Size > 0)
             {
                 location = stack.Top();
@@ -76,24 +102,24 @@
 
                 if (this.charMaze[location.Row + 1][location.Column] == ' ' || this.charMaze[location.Row + 1][location.Column] == 'E')
                 {
-                    // Move south
+                    // South
                     stack.Push(new Point(location.Row + 1, location.Column));
                 }
                 else
                 {
                     if (this.charMaze[location.Row][location.Column + 1] == ' ' || this.charMaze[location.Row][location.Column + 1] == 'E')
                     {
-                        // Move east
+                        // East
                         stack.Push(new Point(location.Row, location.Column + 1));
                     }
                     else if (this.charMaze[location.Row][location.Column - 1] == ' ' || this.charMaze[location.Row][location.Column - 1] == 'E')
                     {
-                        // Move west
+                        // West
                         stack.Push(new Point(location.Row, location.Column - 1));
                     }
                     else if (this.charMaze[location.Row - 1][location.Column] == ' ' || this.charMaze[location.Row - 1][location.Column] == ' ')
                     {
-                        // Move north
+                        // North
                         stack.Push(new Point(location.Row - 1, location.Column));
                     }
                     else
@@ -107,6 +133,8 @@
                 }
             }
 
+            // Reverse stack for output
+            Stack<Point> reversedStack = GetReverseStackCopy(this.stack);
             string outputComment = "No exit found in maze!\n\n";
             string outputMaze = PrintMaze();
             string steps = "";
@@ -120,12 +148,12 @@
             {
                 Point p = stack.Pop();
                 this.stack.Push(p);
-                this.reversedCopy.Push(p);
+                reversedStack.Push(p);
             }
 
-            while (this.reversedCopy.Size > 0)
+            while (reversedStack.Size > 0)
             {
-                steps += string.Format("{0}\n", this.reversedCopy.Pop());
+                steps += string.Format("{0}\n", reversedStack.Pop());
             }
 
             this.searchComplete = true;
@@ -133,6 +161,11 @@
             return outputComment + steps + outputMaze;
         }
 
+        /// <summary>
+        /// Retrieves the path found by the Depth-First Search as a stack of points.
+        /// </summary>
+        /// <returns>A stack of points representing the path from start to exit.</returns>
+        /// <exception cref="ApplicationException">Thrown if path is invalid, or search was not completed.</exception>
         public Stack<Point> GetPathToFollow()
         {
             ThrowInvalidPath(this.stack);
@@ -143,6 +176,11 @@
 
         // Helper Methods
 
+        /// <summary>
+        /// Creates a copy of a given stack.
+        /// </summary>
+        /// <param name="stack">The stack to copy.</param>
+        /// <returns>A new stack containing all the elements of the original stack in the same order.</returns>
         private Stack<Point> GetStackCopy(Stack<Point> stack)
         {
             Stack<Point> tempStack1 = new Stack<Point>();
@@ -164,20 +202,38 @@
             return tempStack2;
         }
 
+        /// <summary>
+        /// Creates a reversed copy of a given stack.
+        /// </summary>
+        /// <param name="stack">The stack to reverse and copy.</param>
+        /// <returns>A new stack containing all the elements of the original stack in reverse order.</returns>
         private Stack<Point> GetReverseStackCopy(Stack<Point> stack)
         {
             Stack<Point> tempStack1 = new Stack<Point>();
+            Stack<Point> tempStack2 = new Stack<Point>();
 
             while (stack.Size > 0)
             {
                 Point p = stack.Pop();
                 tempStack1.Push(p);
+                tempStack2.Push(p);
+            }
+
+            while (tempStack1.Size > 0)
+            {
+                Point p = tempStack1.Pop();
                 stack.Push(p);
             }
 
-            return tempStack1;
+            return tempStack2;
         }
 
+        /// <summary>
+        /// Reads the maze structure from a file.
+        /// </summary>
+        /// <param name="fileName">The file path of the maze data.</param>
+        /// <returns>A 2D character array representing the maze.</returns>
+        /// <exception cref="ApplicationException">Thrown if there was a problem reading the file, or parsing the file contents.</exception>
         private char[][] ReadMazeFile(string fileName)
         {
             char[][] mazeArray;
@@ -215,6 +271,11 @@
             return mazeArray;
         }
 
+        /// <summary>
+        /// Parses a string containing two integers separated by a space.
+        /// </summary>
+        /// <param name="lineInput">The input string to parse.</param>
+        /// <returns>An array of two integers parsed from the input string.</returns>
         private int[] ParseIntsFromString(string lineInput)
         {
             int firstInt = int.Parse(lineInput.Split(' ')[0]);
@@ -224,11 +285,20 @@
             return ints;
         }
 
+        /// <summary>
+        /// Validates the starting position within the maze to ensure it's an open space.
+        /// </summary>
+        /// <exception cref="ApplicationException">Thrown if the starting position is invalid.</exception>
         private void ThrowInvalidStart()
         {
             if (this.charMaze[StartingPoint.Row][StartingPoint.Column] != ' ') throw new ApplicationException();
         }
 
+        /// <summary>
+        /// Validates the existence of a path in the maze.
+        /// </summary>
+        /// <param name="stack">The stack representing the path.</param>
+        /// <exception cref="ApplicationException">Thrown if no valid path exists.</exception>
         private void ThrowInvalidPath(Stack<Point> stack)
         {
             if (exitFound && stack == null)
@@ -237,6 +307,10 @@
             }
         }
 
+        /// <summary>
+        /// Ensures that the Depth-First Search has been completed before attempting to retrieve the path.
+        /// </summary>
+        /// <exception cref="ApplicationException">Thrown if the search is not complete.</exception>
         private void ThrowSearchNotComplete()
         {
             if (!this.searchComplete)
