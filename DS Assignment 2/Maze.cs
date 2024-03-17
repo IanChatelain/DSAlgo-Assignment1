@@ -60,7 +60,6 @@
                 if (i > 0)
                 {
                     output += "\n";
-
                 }
 
                 for (int j = 0; j < this.charMaze[i].Length; j++)
