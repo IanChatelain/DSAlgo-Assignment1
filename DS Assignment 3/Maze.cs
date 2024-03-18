@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.IO;
 
 namespace TestLibrary
 {
@@ -9,6 +10,7 @@ namespace TestLibrary
     {
         private char[][] charMaze;
         public Point StartingPoint { get; set; }
+        private Point EndPoint { get; set; }
         public int RowLength { get; set; }
         public int ColumnLength { get; set; }
         private Stack<Point> stack = new Stack<Point>();
@@ -143,7 +145,7 @@ namespace TestLibrary
             string outputMaze = PrintMaze();
             string path = "";
 
-            if (exitFound)
+            if (this.exitFound)
             {
                 outputComment = string.Format("Path to follow from Start {0} to Exit {1} - {2} steps:\n", this.StartingPoint.ToString(), this.stack.Top(), this.stack.Size.ToString());
             }
@@ -158,24 +160,70 @@ namespace TestLibrary
 
         public string BreadthFirstSearch()
         {
+            string path = "";
             this.queue.Clear();
             this.queue.Enqueue(this.StartingPoint);
 
-            Point location = this.queue.Front();
+            while (!queue.IsEmpty())
+            {
+                Point location = this.queue.Dequeue();
 
-            // List of points that is the possible directions
-            //List<Point> directions = new List<Point> { new Point(1, 0), new Point(0, 1), new Point(0, -1), new Point(-1, 0) };
+                List<Point> directions = new List<Point>()
+                {
+                    new Point(location.Row + 1, location.Column,     location),
+                    new Point(location.Row,     location.Column + 1, location),
+                    new Point(location.Row,     location.Column - 1, location),
+                    new Point(location.Row - 1, location.Column,     location)
+                };
 
-            //while (!queue.IsEmpty())
-            //{
-            //    foreach (Point direction in directions)
-            //    {
+                foreach (Point direction in directions)
+                {
+                    int row = direction.Row;
+                    int column = direction.Column;
+                    char pointValue = this.charMaze[row][column];
 
-            //    }
-            //}
+                    if (pointValue == ' ' || pointValue == 'E')
+                    {
+                        this.queue.Enqueue(direction);
+                        if (pointValue == 'E')
+                        {
+                            this.EndPoint = direction;
+                            exitFound = true;
+                            break;
+                        }
 
+                        this.charMaze[row][column] = 'V';
+                    }
+                }
+            }
+
+            // String output
+            string outputComment = "No exit found in maze!\n\n";
+            string outputMaze = PrintMaze();
             this.searchComplete = true;
-            return default;
+            int stepCounter = 0;
+
+
+            if (this.EndPoint != null && this.exitFound)
+            {
+                Point tempPoint = this.EndPoint;
+                while (tempPoint.ParentPoint != null)
+                {
+                    path = string.Format("{0}\n", tempPoint.ParentPoint) + path;
+                    tempPoint = tempPoint.ParentPoint;
+                    stepCounter++;
+                }
+
+                path += string.Format("{0}\n", this.EndPoint);
+                stepCounter++;
+
+
+                outputComment = string.Format("Path to follow from Start {0} to Exit {1} - {2} steps:\n", this.StartingPoint.ToString(), this.EndPoint.ToString(), stepCounter);
+
+                Console.WriteLine((outputComment + path + outputMaze));
+            }
+
+            return outputComment + path + outputMaze;
         }
 
         /// <summary>
