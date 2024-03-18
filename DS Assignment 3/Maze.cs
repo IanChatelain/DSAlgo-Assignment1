@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Data.Common;
 using System.IO;
 
 namespace TestLibrary
@@ -164,7 +165,7 @@ namespace TestLibrary
             this.queue.Clear();
             this.queue.Enqueue(this.StartingPoint);
 
-            while (!queue.IsEmpty())
+            while (!queue.IsEmpty() && !exitFound)
             {
                 Point location = this.queue.Dequeue();
 
@@ -182,35 +183,35 @@ namespace TestLibrary
                     int column = direction.Column;
                     char pointValue = this.charMaze[row][column];
 
-                    if (pointValue == ' ' || pointValue == 'E')
+                    if (pointValue == ' ')
                     {
                         this.queue.Enqueue(direction);
-                        if (pointValue == 'E')
-                        {
-                            this.EndPoint = direction;
-                            exitFound = true;
-                            break;
-                        }
-
-                        this.charMaze[row][column] = 'V';
+                        this.charMaze[direction.Row][direction.Column] = 'V';
+                    }
+                    else if (pointValue == 'E')
+                    {
+                        this.EndPoint = direction;
+                        exitFound = true;
+                        break;
                     }
                 }
             }
 
             // String output
             string outputComment = "No exit found in maze!\n\n";
-            string outputMaze = PrintMaze();
+
             this.searchComplete = true;
             int stepCounter = 0;
-
 
             if (this.EndPoint != null && this.exitFound)
             {
                 Point tempPoint = this.EndPoint;
+
                 while (tempPoint.ParentPoint != null)
                 {
                     path = string.Format("{0}\n", tempPoint.ParentPoint) + path;
                     tempPoint = tempPoint.ParentPoint;
+                    this.charMaze[tempPoint.Row][tempPoint.Column] = '.';
                     stepCounter++;
                 }
 
@@ -220,8 +221,11 @@ namespace TestLibrary
 
                 outputComment = string.Format("Path to follow from Start {0} to Exit {1} - {2} steps:\n", this.StartingPoint.ToString(), this.EndPoint.ToString(), stepCounter);
 
-                Console.WriteLine((outputComment + path + outputMaze));
             }
+
+            string outputMaze = PrintMaze();
+
+            Console.WriteLine((outputComment + path + outputMaze));
 
             return outputComment + path + outputMaze;
         }
