@@ -1,4 +1,6 @@
-﻿namespace TestLibrary
+﻿using System.ComponentModel;
+
+namespace TestLibrary
 {
     /// <summary>
     /// Represents a maze and provides functionality for maze navigation using Depth-First Search.
@@ -10,6 +12,7 @@
         public int RowLength { get; set; }
         public int ColumnLength { get; set; }
         private Stack<Point> stack = new Stack<Point>();
+        private Queue<Point> queue = new Queue<Point>();
         private bool exitFound = false;
         private bool searchComplete = false;
 
@@ -155,6 +158,23 @@
 
         public string BreadthFirstSearch()
         {
+            this.queue.Clear();
+            this.queue.Enqueue(this.StartingPoint);
+
+            Point location = this.queue.Front();
+
+            // List of points that is the possible directions
+            //List<Point> directions = new List<Point> { new Point(1, 0), new Point(0, 1), new Point(0, -1), new Point(-1, 0) };
+
+            //while (!queue.IsEmpty())
+            //{
+            //    foreach (Point direction in directions)
+            //    {
+
+            //    }
+            //}
+
+            this.searchComplete = true;
             return default;
         }
 
