@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using System.ComponentModel;
 using System.Data.Common;
 using System.IO;
 
@@ -141,7 +142,7 @@ namespace TestLibrary
             this.searchComplete = true;
 
             // Reverse stack for output
-            Stack<Point> pathStack = GetPathToFollow();
+            Stack<Point> pathStack = this.GetReverseStackCopy(GetPathToFollow());
             string outputComment = "No exit found in maze!\n\n";
             string outputMaze = PrintMaze();
             string path = "";
@@ -159,12 +160,17 @@ namespace TestLibrary
             return outputComment + path + outputMaze;
         }
 
+        /// <summary>
+        /// Executes the Breadth-First Search algorithm to find a path through the maze.
+        /// </summary>
+        /// <returns>A string detailing the path found, or a message indicating no exit was found, and the maze.</returns>
         public string BreadthFirstSearch()
         {
             string path = "";
             this.queue.Clear();
             this.queue.Enqueue(this.StartingPoint);
 
+            // Breadth-first search loop.
             while (!queue.IsEmpty() && !exitFound)
             {
                 Point location = this.queue.Dequeue();
@@ -179,16 +185,12 @@ namespace TestLibrary
 
                 foreach (Point direction in directions)
                 {
-                    int row = direction.Row;
-                    int column = direction.Column;
-                    char pointValue = this.charMaze[row][column];
-
-                    if (pointValue == ' ')
+                    if (this.charMaze[direction.Row][direction.Column] == ' ')
                     {
                         this.queue.Enqueue(direction);
                         this.charMaze[direction.Row][direction.Column] = 'V';
                     }
-                    else if (pointValue == 'E')
+                    else if (this.charMaze[direction.Row][direction.Column] == 'E')
                     {
                         this.EndPoint = direction;
                         exitFound = true;
@@ -197,9 +199,8 @@ namespace TestLibrary
                 }
             }
 
-            // String output
+            // String output.
             string outputComment = "No exit found in maze!\n\n";
-
             this.searchComplete = true;
             int stepCounter = 0;
 
@@ -207,10 +208,13 @@ namespace TestLibrary
             {
                 Point tempPoint = this.EndPoint;
 
+
                 while (tempPoint.ParentPoint != null)
                 {
+
                     path = string.Format("{0}\n", tempPoint.ParentPoint) + path;
                     tempPoint = tempPoint.ParentPoint;
+                    this.stack.Push(tempPoint);
                     this.charMaze[tempPoint.Row][tempPoint.Column] = '.';
                     stepCounter++;
                 }
@@ -225,8 +229,6 @@ namespace TestLibrary
 
             string outputMaze = PrintMaze();
 
-            Console.WriteLine((outputComment + path + outputMaze));
-
             return outputComment + path + outputMaze;
         }
 
@@ -240,7 +242,7 @@ namespace TestLibrary
             ThrowInvalidPath(this.stack);
             ThrowSearchNotComplete();
 
-            return GetReverseStackCopy(this.stack);
+            return this.GetStackCopy(this.stack);
         }
 
         // Helper Methods
